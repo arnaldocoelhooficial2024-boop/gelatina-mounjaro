@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { CheckCircle2, Flame, Trophy, ChevronRight, Sparkles, Target } from 'lucide-react';
+import { CheckCircle2, Flame, Trophy, ChevronRight, Sparkles, Target, Scale } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export function Dashboard() {
   const [progress, setProgress] = useState(0);
   const [streak, setStreak] = useState(0);
+  const [currentWeight, setCurrentWeight] = useState<number | null>(null);
+  const [goalWeight, setGoalWeight] = useState<number | null>(null);
+  const [height, setHeight] = useState<number | null>(null);
 
   useEffect(() => {
     const savedCompleted = localStorage.getItem('completedDays');
@@ -23,6 +26,21 @@ export function Dashboard() {
       }
       setStreak(currentStreak);
     }
+
+    // Health data
+    const savedHistory = localStorage.getItem('gm_weight_history');
+    if (savedHistory) {
+      const history = JSON.parse(savedHistory);
+      if (history.length > 0) {
+        setCurrentWeight(history[history.length - 1].weight);
+      }
+    }
+    
+    const savedGoal = localStorage.getItem('gm_goal_weight');
+    if (savedGoal) setGoalWeight(parseFloat(savedGoal));
+
+    const savedHeight = localStorage.getItem('gm_height');
+    if (savedHeight) setHeight(parseFloat(savedHeight));
   }, []);
 
   const handleCheckIn = () => {
@@ -51,6 +69,20 @@ export function Dashboard() {
       setStreak(currentStreak);
     }
   };
+
+  const kilosToLose = currentWeight && goalWeight ? (currentWeight - goalWeight).toFixed(1) : null;
+  const imc = currentWeight && height ? (currentWeight / ((height / 100) * (height / 100))).toFixed(1) : null;
+
+  const getImcCategory = (imcValue: number) => {
+    if (imcValue < 18.5) return { label: 'Abaixo do peso', color: 'text-blue-500 dark:text-blue-400' };
+    if (imcValue < 24.9) return { label: 'Peso normal', color: 'text-emerald-500 dark:text-emerald-400' };
+    if (imcValue < 29.9) return { label: 'Sobrepeso', color: 'text-amber-500 dark:text-amber-400' };
+    if (imcValue < 34.9) return { label: 'Obesidade I', color: 'text-orange-500 dark:text-orange-400' };
+    if (imcValue < 39.9) return { label: 'Obesidade II', color: 'text-rose-500 dark:text-rose-400' };
+    return { label: 'Obesidade III', color: 'text-red-600 dark:text-red-500' };
+  };
+
+  const imcCategory = imc ? getImcCategory(parseFloat(imc)) : null;
 
   return (
     <div className="p-6 space-y-8 max-w-md mx-auto">
@@ -99,18 +131,57 @@ export function Dashboard() {
         </div>
       </section>
 
-      {/* Gamification Explanation */}
-      <section className="bg-white dark:bg-slate-800 rounded-[2rem] p-6 border border-slate-100 dark:border-slate-700 shadow-sm space-y-4 transition-colors duration-300">
-        <div className="flex items-start gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-orange-50 dark:bg-orange-500/10 flex items-center justify-center shrink-0 border border-orange-100 dark:border-orange-500/20">
-            <Flame className="text-orange-500" size={24} />
+      {/* Weight Tracking Widget */}
+      <section className="bg-white dark:bg-slate-800 rounded-[2rem] p-6 border border-slate-100 dark:border-slate-700 shadow-sm relative overflow-hidden group">
+        <div className="flex justify-between items-center mb-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center border border-emerald-100 dark:border-emerald-500/20">
+              <Scale className="text-emerald-500" size={20} />
+            </div>
+            <div>
+              <h3 className="font-bold text-slate-800 dark:text-white font-serif">Seu Progresso</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Acompanhe suas medidas</p>
+            </div>
           </div>
-          <div>
-            <h3 className="font-bold text-slate-800 dark:text-white font-serif text-lg">O que é o Fogo?</h3>
-            <p className="text-sm text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
-              O <strong className="text-slate-800 dark:text-white">Fogo</strong> indica quantos dias seguidos você fez o protocolo sem falhar. 
-              Faça seu check-in diário para manter sua chama acesa e acelerar seus resultados!
+          <Link to="/profile" className="text-brand-600 dark:text-brand-400 text-sm font-bold flex items-center gap-1 hover:underline">
+            Atualizar <ChevronRight size={16} />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-2 gap-3 mb-3">
+          <div className="bg-slate-50 dark:bg-slate-900/50 rounded-2xl p-4 border border-slate-100 dark:border-slate-700/50">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-1">Peso Atual</p>
+            <p className="font-serif text-2xl font-bold text-slate-800 dark:text-white">
+              {currentWeight || '--'} <span className="text-sm text-slate-500">kg</span>
             </p>
+          </div>
+          <div className="bg-slate-50 dark:bg-slate-900/50 rounded-2xl p-4 border border-slate-100 dark:border-slate-700/50">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-1">Meta</p>
+            <p className="font-serif text-2xl font-bold text-slate-800 dark:text-white">
+              {goalWeight || '--'} <span className="text-sm text-slate-500">kg</span>
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-3">
+          <div className="bg-brand-50 dark:bg-brand-900/20 rounded-2xl p-4 border border-brand-100 dark:border-brand-800/50">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-brand-600 dark:text-brand-400 mb-1">A Perder</p>
+            <p className="font-serif text-xl font-bold text-brand-700 dark:text-brand-300">
+              {kilosToLose ? `${kilosToLose} kg` : '--'}
+            </p>
+          </div>
+          <div className="bg-indigo-50 dark:bg-indigo-900/20 rounded-2xl p-4 border border-indigo-100 dark:border-indigo-800/50">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-indigo-600 dark:text-indigo-400 mb-1">Seu IMC</p>
+            <div className="flex items-baseline gap-2">
+              <p className="font-serif text-xl font-bold text-indigo-700 dark:text-indigo-300">
+                {imc || '--'}
+              </p>
+              {imcCategory && (
+                <span className={`text-[10px] font-bold uppercase tracking-widest ${imcCategory.color}`}>
+                  {imcCategory.label}
+                </span>
+              )}
+            </div>
           </div>
         </div>
       </section>
@@ -150,39 +221,6 @@ export function Dashboard() {
         <Link to="/bonus" className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors relative z-10 backdrop-blur-md border border-white/10">
           <ChevronRight size={20} />
         </Link>
-      </section>
-
-      {/* Weight Tracking Widget */}
-      <section className="bg-white dark:bg-slate-800 rounded-[2rem] p-6 border border-slate-100 dark:border-slate-700 shadow-sm relative overflow-hidden group">
-        <div className="flex justify-between items-center mb-4">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center border border-emerald-100 dark:border-emerald-500/20">
-              <Target className="text-emerald-500" size={20} />
-            </div>
-            <div>
-              <h3 className="font-bold text-slate-800 dark:text-white font-serif">Seu Progresso</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Acompanhe seu peso</p>
-            </div>
-          </div>
-          <Link to="/profile" className="text-brand-600 dark:text-brand-400 text-sm font-bold flex items-center gap-1 hover:underline">
-            Atualizar <ChevronRight size={16} />
-          </Link>
-        </div>
-        <div className="bg-slate-50 dark:bg-slate-900/50 rounded-2xl p-4 border border-slate-100 dark:border-slate-700/50 flex items-center justify-between">
-          <div>
-            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-1">Peso Atual</p>
-            <p className="font-serif text-2xl font-bold text-slate-800 dark:text-white">
-              {localStorage.getItem('gm_weight_history') ? JSON.parse(localStorage.getItem('gm_weight_history') || '[]').slice(-1)[0]?.weight || '--' : '--'} <span className="text-sm text-slate-500">kg</span>
-            </p>
-          </div>
-          <div className="h-8 w-px bg-slate-200 dark:bg-slate-700"></div>
-          <div>
-            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-1">Meta</p>
-            <p className="font-serif text-2xl font-bold text-slate-800 dark:text-white">
-              {localStorage.getItem('gm_goal_weight') || '--'} <span className="text-sm text-slate-500">kg</span>
-            </p>
-          </div>
-        </div>
       </section>
     </div>
   );
