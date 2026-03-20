@@ -1,90 +1,323 @@
 export const appData = {
+  protocol_explanation: {
+    title: "O Método Gelatina Mounjaro",
+    description: "O protocolo consiste no consumo diário de uma taça da Gelatina Mounjaro (rica em fibras e ativadores metabólicos) exatamente 30 minutos antes do almoço e 30 minutos antes do jantar.",
+    mechanism: "Ao chegar no estômago, as fibras da gelatina se expandem, formando um gel que ocupa espaço e retarda o esvaziamento gástrico. Isso bloqueia picos de insulina e envia sinais de saciedade extrema ao cérebro, simulando o efeito de inibidores de apetite de forma 100% natural."
+  },
   protocol: Array.from({ length: 30 }, (_, i) => ({
     day: i + 1,
-    title: `Dia ${i + 1}: ${i === 0 ? 'O Início da Transformação' : i === 14 ? 'Metade do Caminho' : i === 29 ? 'O Novo Você' : 'Foco e Consistência'}`,
-    description: i === 0 ? 'Hoje você dá o primeiro passo rumo ao seu novo corpo.' : 'Mantenha o foco, os resultados estão aparecendo.',
-    gelatina: 'Consumir 1 porção 30 min antes do almoço e 1 porção à tarde.',
-    diet_tip: i % 2 === 0 ? 'Beba 2,5 litros de água hoje.' : 'Evite carboidratos após as 18h.',
-    behavior_tip: i % 3 === 0 ? 'Anote como se sentiu hoje.' : 'Durma pelo menos 7 horas.',
+    title: `Dia ${i + 1}: ${i === 0 ? 'O Início da Transformação' : i === 7 ? 'Primeiros Resultados' : i === 14 ? 'Metade do Caminho' : i === 21 ? 'Hábito Consolidado' : i === 29 ? 'O Novo Você' : 'Foco e Consistência'}`,
+    description: i === 0 ? 'Hoje você dá o primeiro passo. Prepare sua gelatina e consuma nos horários corretos.' : 'Mantenha o foco, a consistência é a chave do sucesso.',
+    gelatina: 'Consumir 1 taça 30 min antes do almoço e 1 taça 30 min antes do jantar.',
+    diet_tip: i % 2 === 0 ? 'Beba 2,5 litros de água hoje. A água é essencial para a expansão das fibras da gelatina no estômago.' : 'Priorize proteínas magras nas refeições principais para manter a massa magra.',
+    behavior_tip: i % 3 === 0 ? 'Anote como se sentiu hoje. O controle do apetite já deve ser notável.' : 'Mastigue devagar. A saciedade leva cerca de 20 minutos para ser registrada pelo cérebro.',
   })),
   recipes: [
     {
-      name: 'Gelatina Monjaro Original',
-      description: 'A receita base para saciedade extrema e controle de apetite.',
-      ingredients: [
-        '1 sachê de gelatina incolor sem sabor (12g)',
-        '200ml de água quente',
-        '100ml de água gelada',
-        '1 colher de sopa de vinagre de maçã',
-        '1 colher de chá de psyllium',
-        'Adoçante stévia a gosto'
-      ],
-      preparation: [
-        'Dissolva a gelatina incolor na água quente.',
-        'Adicione a água gelada e misture bem.',
-        'Incorpore o vinagre de maçã e o psyllium.',
-        'Adoce a gosto e leve à geladeira por 2 horas.'
-      ],
-      tips: ['Beba um copo de água logo após consumir para ativar o psyllium.'],
-      variations: [
-        'Adicione suco de meio limão para um sabor cítrico.',
-        'Bata com morangos no liquidificador antes de gelar.'
-      ]
+      id: 'original',
+      name: 'Original Detox',
+      shortName: 'Original',
+      description: 'A receita base do protocolo. Focada em saciedade extrema e controle absoluto do apetite durante o dia.',
+      tags: ['Saciedade', 'Detox', 'Fibras'],
+      ingredients: ['1 sachê de gelatina incolor sem sabor (12g)', '200ml de água quente', '100ml de água gelada', '1 colher de sopa de vinagre de maçã', '1 colher de chá de psyllium', 'Adoçante stévia a gosto'],
+      preparation: ['Dissolva a gelatina incolor na água quente até não restar grumos.', 'Adicione a água gelada e misture bem.', 'Incorpore o vinagre de maçã e o psyllium, mexendo vigorosamente.', 'Adoce a gosto, distribua em taças e leve à geladeira por 2 horas.'],
+      tips: ['Beba um copo de água (200ml) logo após consumir a gelatina para ativar a expansão máxima do psyllium.']
+    },
+    {
+      id: 'red_fruits',
+      name: 'Frutas Vermelhas Termogênica',
+      shortName: 'Termogênica',
+      description: 'Acelera o metabolismo basal enquanto inibe o apetite. Ideal para quebrar platôs de perda de peso.',
+      tags: ['Termogênico', 'Antioxidante'],
+      ingredients: ['1 sachê de gelatina diet de morango ou framboesa', '200ml de chá de hibisco quente', '100ml de água gelada', '3 morangos picados', '1 pitada de pimenta caiena', '1 colher de chá de psyllium'],
+      preparation: ['Dissolva a gelatina diet no chá de hibisco quente.', 'Adicione a água gelada, a pimenta caiena e o psyllium.', 'Coloque os morangos picados no fundo das taças.', 'Despeje o líquido sobre os morangos e leve à geladeira.'],
+      tips: ['Ideal para consumir antes do almoço para dar um pico de energia e queima calórica durante a tarde.']
+    },
+    {
+      id: 'lemon_ginger',
+      name: 'Limão com Gengibre',
+      shortName: 'Digestiva',
+      description: 'Perfeita para desinchar, melhorar a digestão e combater a retenção de líquidos.',
+      tags: ['Desinchaço', 'Digestão'],
+      ingredients: ['1 sachê de gelatina incolor sem sabor (12g)', '200ml de água quente', '100ml de água gelada', 'Suco de 1 limão espremido', '1 colher de café de gengibre em pó', '1 colher de chá de psyllium', 'Adoçante a gosto'],
+      preparation: ['Dissolva a gelatina na água quente.', 'Misture a água gelada, o suco de limão e o gengibre.', 'Adicione o psyllium mexendo bem para não empelotar.', 'Adoce e leve à geladeira por 2 horas.'],
+      tips: ['O gengibre ajuda a combater a inflamação celular, potencializando a perda de peso e reduzindo a celulite.']
+    },
+    {
+      id: 'passion_fruit',
+      name: 'Maracujá Calmante',
+      shortName: 'Noturna',
+      description: 'Ideal para o período noturno. Controla a fome da noite e melhora a qualidade do sono.',
+      tags: ['Relaxante', 'Sono Profundo'],
+      ingredients: ['1 sachê de gelatina incolor sem sabor (12g)', '200ml de chá de camomila quente', '100ml de água gelada', 'Polpa de meio maracujá (com sementes)', '1 colher de chá de psyllium', 'Adoçante a gosto'],
+      preparation: ['Dissolva a gelatina no chá de camomila quente.', 'Adicione a água gelada e o psyllium.', 'Misture a polpa do maracujá delicadamente.', 'Adoce e leve à geladeira.'],
+      tips: ['Consuma 30 minutos antes do jantar. A camomila e o maracujá reduzem a ansiedade noturna e a vontade de comer doces.']
+    },
+    {
+      id: 'pineapple_mint',
+      name: 'Abacaxi com Hortelã',
+      shortName: 'Refrescante',
+      description: 'Ação diurética poderosa para eliminar toxinas e refrescar nos dias mais quentes.',
+      tags: ['Diurético', 'Refrescante'],
+      ingredients: ['1 sachê de gelatina diet de abacaxi', '200ml de água quente', '100ml de chá verde gelado', 'Folhas de hortelã picadas', '1 colher de chá de psyllium'],
+      preparation: ['Dissolva a gelatina na água quente.', 'Adicione o chá verde gelado e o psyllium, mexendo bem.', 'Incorpore as folhas de hortelã picadas.', 'Distribua nas taças e leve à geladeira.'],
+      tips: ['O chá verde potencializa a queima de gordura e o abacaxi ajuda na digestão de proteínas.']
+    },
+    {
+      id: 'apple_cinnamon',
+      name: 'Maçã com Canela',
+      shortName: 'Glicêmica',
+      description: 'Controla os picos de insulina e reduz drasticamente a vontade de comer doces.',
+      tags: ['Controle Glicêmico', 'Termogênico'],
+      ingredients: ['1 sachê de gelatina incolor', '200ml de água quente', '100ml de água gelada', '1 colher de chá de canela em pó', 'Meia maçã ralada', '1 colher de chá de psyllium'],
+      preparation: ['Dissolva a gelatina na água quente com a canela.', 'Adicione a água gelada e o psyllium.', 'Coloque a maçã ralada nas taças e cubra com o líquido.', 'Leve à geladeira.'],
+      tips: ['A canela é um excelente hipoglicemiante natural.']
+    },
+    {
+      id: 'grape_antiox',
+      name: 'Uva Antioxidante',
+      shortName: 'Antiox',
+      description: 'Rica em resveratrol, ajuda na renovação celular e combate o envelhecimento.',
+      tags: ['Antioxidante', 'Renovação'],
+      ingredients: ['1 sachê de gelatina diet de uva', '200ml de água quente', '100ml de suco de uva integral (sem açúcar)', '1 colher de chá de psyllium'],
+      preparation: ['Dissolva a gelatina na água quente.', 'Misture o suco de uva integral e o psyllium.', 'Distribua nas taças e refrigere.'],
+      tips: ['O suco integral traz os benefícios da uva sem os malefícios do açúcar refinado.']
+    },
+    {
+      id: 'kiwi_chia',
+      name: 'Kiwi com Chia',
+      shortName: 'Intestino',
+      description: 'Foco total no funcionamento intestinal e eliminação de inchaço abdominal.',
+      tags: ['Fibras', 'Intestino'],
+      ingredients: ['1 sachê de gelatina incolor', '200ml de água quente', '100ml de água gelada', '1 kiwi amassado', '1 colher de sopa de chia', '1 colher de chá de psyllium'],
+      preparation: ['Dissolva a gelatina na água quente.', 'Adicione a água gelada, a chia e o psyllium.', 'Misture o kiwi e leve à geladeira.'],
+      tips: ['A chia junto com o psyllium forma uma vassoura intestinal poderosa.']
+    },
+    {
+      id: 'orange_carrot',
+      name: 'Laranja com Cenoura',
+      shortName: 'Imunidade',
+      description: 'Dose extra de vitamina C e betacaroteno para blindar a imunidade.',
+      tags: ['Imunidade', 'Vitaminas'],
+      ingredients: ['1 sachê de gelatina incolor', '200ml de água quente', '100ml de suco natural de laranja com cenoura', '1 colher de chá de psyllium'],
+      preparation: ['Dissolva a gelatina na água quente.', 'Misture o suco natural e o psyllium.', 'Refrigere até firmar.'],
+      tips: ['Beba o suco logo após espremer para não perder a vitamina C.']
+    },
+    {
+      id: 'strawberry_collagen',
+      name: 'Morango com Colágeno',
+      shortName: 'Pele Firme',
+      description: 'Ajuda a manter a firmeza da pele durante o processo de emagrecimento.',
+      tags: ['Pele', 'Firmeza'],
+      ingredients: ['1 sachê de gelatina diet de morango', '200ml de água quente', '100ml de água gelada', '1 scoop de colágeno hidrolisado', '1 colher de chá de psyllium'],
+      preparation: ['Dissolva a gelatina e o colágeno na água quente.', 'Adicione a água gelada e o psyllium.', 'Leve à geladeira.'],
+      tips: ['O colágeno hidrolisado previne a flacidez ao perder peso.']
+    },
+    {
+      id: 'watermelon_diuretic',
+      name: 'Melancia Diurética',
+      shortName: 'Diurética',
+      description: 'Elimina a retenção de líquidos rapidamente, secando medidas.',
+      tags: ['Diurético', 'Seca Barriga'],
+      ingredients: ['1 sachê de gelatina incolor', '150ml de água quente', '150ml de suco natural de melancia', '1 colher de chá de psyllium'],
+      preparation: ['Dissolva a gelatina na água quente.', 'Misture o suco de melancia e o psyllium.', 'Refrigere.'],
+      tips: ['A melancia é rica em água e potássio, excelente contra o inchaço.']
+    },
+    {
+      id: 'peach_rosemary',
+      name: 'Pêssego com Alecrim',
+      shortName: 'Aromática',
+      description: 'Sabor sofisticado que ajuda a reduzir o estresse e a compulsão alimentar.',
+      tags: ['Relaxante', 'Aromaterapia'],
+      ingredients: ['1 sachê de gelatina diet de pêssego', '200ml de chá de alecrim quente', '100ml de água gelada', '1 colher de chá de psyllium'],
+      preparation: ['Faça o chá de alecrim e use-o quente para dissolver a gelatina.', 'Adicione a água gelada e o psyllium.', 'Leve à geladeira.'],
+      tips: ['O aroma do alecrim atua no sistema nervoso reduzindo a ansiedade.']
+    },
+    {
+      id: 'blackberry_clove',
+      name: 'Amora com Cravo',
+      shortName: 'Metabolismo',
+      description: 'Combinação exótica que regula o açúcar no sangue e acelera a queima.',
+      tags: ['Termogênico', 'Controle'],
+      ingredients: ['1 sachê de gelatina diet de amora', '200ml de água quente com 3 cravos da índia (infusão)', '100ml de água gelada', '1 colher de chá de psyllium'],
+      preparation: ['Faça uma infusão com os cravos, retire-os e use a água quente para a gelatina.', 'Misture a água gelada e o psyllium.', 'Refrigere.'],
+      tips: ['O cravo da índia é um potente acelerador metabólico.']
+    },
+    {
+      id: 'tangerine_turmeric',
+      name: 'Tangerina com Cúrcuma',
+      shortName: 'Anti-inflamatória',
+      description: 'Desinflama o corpo, facilitando a perda de gordura resistente.',
+      tags: ['Anti-inflamatório', 'Detox'],
+      ingredients: ['1 sachê de gelatina incolor', '200ml de água quente', '100ml de suco de tangerina', '1 pitada de cúrcuma em pó', '1 colher de chá de psyllium'],
+      preparation: ['Dissolva a gelatina na água quente com a cúrcuma.', 'Adicione o suco de tangerina e o psyllium.', 'Leve à geladeira.'],
+      tips: ['A cúrcuma é o anti-inflamatório natural mais potente que existe.']
+    },
+    {
+      id: 'coconut_cocoa',
+      name: 'Coco com Cacau',
+      shortName: 'Mata-Fome',
+      description: 'Rica em gorduras boas que prolongam a saciedade por horas.',
+      tags: ['Saciedade', 'Gorduras Boas'],
+      ingredients: ['1 sachê de gelatina incolor', '150ml de água quente', '150ml de leite de coco', '1 colher de sopa de cacau em pó 100%', '1 colher de chá de psyllium', 'Adoçante'],
+      preparation: ['Dissolva a gelatina e o cacau na água quente.', 'Misture o leite de coco, o adoçante e o psyllium.', 'Refrigere.'],
+      tips: ['Ideal para dias em que a fome parece incontrolável.']
+    },
+    {
+      id: 'raspberry_pepper',
+      name: 'Framboesa com Pimenta Rosa',
+      shortName: 'Queima Rápida',
+      description: 'Ação termogênica dupla para dias de treino ou maior gasto calórico.',
+      tags: ['Termogênico', 'Energia'],
+      ingredients: ['1 sachê de gelatina diet de framboesa', '200ml de água quente', '100ml de água gelada', 'Grãos de pimenta rosa amassados', '1 colher de chá de psyllium'],
+      preparation: ['Dissolva a gelatina na água quente.', 'Adicione a água gelada, a pimenta rosa e o psyllium.', 'Leve à geladeira.'],
+      tips: ['A pimenta rosa é suave mas altamente eficaz na termogênese.']
+    },
+    {
+      id: 'cherry_vanilla',
+      name: 'Cereja com Baunilha',
+      shortName: 'Conforto',
+      description: 'Sabor de sobremesa que engana o cérebro e corta a vontade de doces.',
+      tags: ['Sobremesa', 'Controle'],
+      ingredients: ['1 sachê de gelatina diet de cereja', '200ml de água quente', '100ml de água gelada', '1 colher de café de essência de baunilha', '1 colher de chá de psyllium'],
+      preparation: ['Dissolva a gelatina na água quente.', 'Misture a água gelada, a baunilha e o psyllium.', 'Refrigere.'],
+      tips: ['A baunilha envia sinais de conforto e saciedade ao cérebro.']
+    },
+    {
+      id: 'lemon_basil',
+      name: 'Limão Siciliano com Manjericão',
+      shortName: 'Gourmet',
+      description: 'Refrescante e sofisticada, excelente para dias quentes e detox profundo.',
+      tags: ['Detox', 'Refrescante'],
+      ingredients: ['1 sachê de gelatina incolor', '200ml de água quente', '100ml de água gelada', 'Suco de meio limão siciliano', 'Folhas de manjericão fresco', '1 colher de chá de psyllium', 'Adoçante'],
+      preparation: ['Dissolva a gelatina na água quente.', 'Adicione a água gelada, o suco de limão, o adoçante e o psyllium.', 'Coloque as folhas de manjericão nas taças e cubra com o líquido.', 'Refrigere.'],
+      tips: ['O manjericão tem propriedades digestivas e calmantes.']
+    },
+    {
+      id: 'blueberry_focus',
+      name: 'Mirtilo Foco Mental',
+      shortName: 'Foco Mental',
+      description: 'Rica em antioxidantes que melhoram a clareza mental durante o jejum ou dieta.',
+      tags: ['Foco', 'Antioxidante'],
+      ingredients: ['1 sachê de gelatina incolor', '200ml de água quente', '100ml de água gelada', 'Punhado de mirtilos (blueberries)', '1 colher de chá de psyllium', 'Adoçante'],
+      preparation: ['Dissolva a gelatina na água quente.', 'Misture a água gelada, o adoçante e o psyllium.', 'Coloque os mirtilos nas taças e despeje o líquido.', 'Leve à geladeira.'],
+      tips: ['Mirtilos são conhecidos como o "alimento do cérebro".']
+    },
+    {
+      id: 'green_apple_celery',
+      name: 'Maçã Verde Super Detox',
+      shortName: 'Super Detox',
+      description: 'Limpeza profunda do fígado e eliminação de toxinas acumuladas.',
+      tags: ['Detox Profundo', 'Fígado'],
+      ingredients: ['1 sachê de gelatina incolor', '150ml de água quente', '150ml de suco verde (maçã verde batida com aipo)', '1 colher de chá de psyllium'],
+      preparation: ['Dissolva a gelatina na água quente.', 'Misture o suco verde coado e o psyllium.', 'Refrigere.'],
+      tips: ['O aipo é um dos vegetais mais poderosos para a desintoxicação hepática.']
+    },
+    {
+      id: 'strawberry_basil',
+      name: 'Morango com Manjericão',
+      shortName: 'Antioxidante',
+      description: 'Combinação refrescante que combate radicais livres e melhora a digestão.',
+      tags: ['Antioxidante', 'Refrescante'],
+      ingredients: ['1 sachê de gelatina diet de morango', '200ml de água quente', '100ml de água gelada', 'Folhas de manjericão fresco', '1 colher de chá de psyllium'],
+      preparation: ['Dissolva a gelatina na água quente.', 'Adicione a água gelada, o manjericão picado e o psyllium.', 'Leve à geladeira.'],
+      tips: ['O manjericão adiciona um frescor único e auxilia na digestão.']
+    },
+    {
+      id: 'lemon_rosemary',
+      name: 'Limão com Alecrim',
+      shortName: 'Revigorante',
+      description: 'Aroma estimulante que reduz a fadiga mental e física.',
+      tags: ['Energia', 'Foco'],
+      ingredients: ['1 sachê de gelatina incolor', '200ml de chá de alecrim quente', '100ml de água gelada', 'Suco de 1 limão', '1 colher de chá de psyllium', 'Adoçante'],
+      preparation: ['Faça o chá de alecrim e use para dissolver a gelatina.', 'Misture o suco de limão, a água gelada e o psyllium.', 'Adoce e refrigere.'],
+      tips: ['O alecrim é conhecido por melhorar a memória e a concentração.']
+    },
+    {
+      id: 'grape_mint',
+      name: 'Uva com Hortelã',
+      shortName: 'Circulação',
+      description: 'Melhora a circulação sanguínea e previne o envelhecimento precoce.',
+      tags: ['Circulação', 'Antioxidante'],
+      ingredients: ['1 sachê de gelatina diet de uva', '200ml de água quente', '100ml de água gelada', 'Folhas de hortelã', '1 colher de chá de psyllium'],
+      preparation: ['Dissolva a gelatina na água quente.', 'Adicione a água gelada, a hortelã picada e o psyllium.', 'Leve à geladeira.'],
+      tips: ['A hortelã ajuda a aliviar dores de cabeça e náuseas.']
+    },
+    {
+      id: 'passion_ginger',
+      name: 'Maracujá com Gengibre',
+      shortName: 'Equilíbrio',
+      description: 'Acalma a mente enquanto acelera o metabolismo.',
+      tags: ['Relaxante', 'Termogênico'],
+      ingredients: ['1 sachê de gelatina incolor', '200ml de água quente', '100ml de água gelada', 'Polpa de meio maracujá', '1 colher de café de gengibre em pó', '1 colher de chá de psyllium', 'Adoçante'],
+      preparation: ['Dissolva a gelatina na água quente.', 'Misture a água gelada, o maracujá, o gengibre e o psyllium.', 'Adoce e refrigere.'],
+      tips: ['O contraste perfeito entre o calmante do maracujá e o termogênico do gengibre.']
     }
-  ],
-  ingredients: {
-    base: ['Gelatina incolor sem sabor', 'Água', 'Adoçante natural (Stévia/Eritritol)'],
-    optionals: ['Limão', 'Morango', 'Maracujá', 'Canela em pó'],
-    accelerators: ['Vinagre de maçã', 'Psyllium', 'Gengibre em pó', 'Chia']
-  },
-  tips: [
-    'Beba pelo menos 2,5L de água por dia.',
-    'Durma de 7 a 8 horas por noite.',
-    'Evite carboidratos simples após as 18h.',
-    'Mastigue cada garfada pelo menos 20 vezes.',
-    'Não pule o café da manhã se sentir fome.',
-    'Substitua doces por uma porção da Gelatina Monjaro.',
-    'Faça caminhadas de 30 minutos, 3x na semana.',
-    'Evite refrigerantes, mesmo os zero.',
-    'Planeje suas refeições no domingo.',
-    'Não se pese todos os dias, foque nas medidas.'
   ],
   bonus: {
     diet_plans: [
       {
-        level: 'Básico',
+        id: 'iniciante',
+        name: 'Fase 1: Adaptação',
+        level: 'Semanas 1 e 2',
+        description: 'Foco em limpar a alimentação sem restrições severas. O objetivo é adaptar o corpo e criar consistência com a Gelatina Mounjaro.',
         meals: {
-          breakfast: '2 ovos mexidos + 1 fatia de mamão + café sem açúcar',
-          lunch: '1 filé de frango grelhado + 3 colheres de arroz integral + salada à vontade',
-          snack: '1 porção de Gelatina Monjaro + 1 castanha do pará',
-          dinner: 'Sopa de legumes com carne ou omelete de 2 ovos com espinafre'
+          breakfast: '2 ovos mexidos + 1 fatia de pão integral + Café ou chá sem açúcar.',
+          lunch: '1 taça de Gelatina (30 min antes). 1 escumadeira de arroz integral + 1 concha de feijão + 150g de frango/carne magra + Salada à vontade.',
+          snack: '1 fruta (maçã, pera ou morangos) + 1 colher de chia ou aveia.',
+          dinner: '1 taça de Gelatina (30 min antes). Sopa de legumes com carne desfiada OU Salada completa com atum e azeite.'
         }
       },
       {
-        level: 'Intermediário',
+        id: 'low_carb',
+        name: 'Fase 2: Aceleração (Low Carb)',
+        level: 'Semanas 3 e 4',
+        description: 'Redução estratégica de carboidratos para acelerar a queima de gordura. O corpo começa a usar a gordura estocada como energia.',
         meals: {
-          breakfast: 'Crepioca (1 ovo + 1 colher de tapioca) com queijo branco + chá verde',
-          lunch: '150g de peixe assado + purê de abóbora + brócolis no vapor',
-          snack: '1 iogurte natural + 1 colher de chia + 1 porção de Gelatina Monjaro',
-          dinner: 'Salada completa com atum, folhas verdes, tomate e azeite'
+          breakfast: 'Omelete de 2 ovos com espinafre e queijo branco + Café puro.',
+          lunch: '1 taça de Gelatina (30 min antes). 150g de peixe ou frango grelhado + Salada de folhas verdes à vontade + Legumes no vapor.',
+          snack: 'Mix de castanhas (30g) OU 1 iogurte natural sem açúcar.',
+          dinner: '1 taça de Gelatina (30 min antes). Filé de frango grelhado + Espaguete de abobrinha com molho de tomate natural.'
         }
       },
       {
-        level: 'Avançado',
+        id: 'keto',
+        name: 'Fase 3: Queima Extrema (Cetogênica)',
+        level: 'Opcional / Avançado',
+        description: 'Redução drástica de carboidratos forçando o corpo a entrar em cetose. Resultados expressivos e rápidos.',
         meals: {
-          breakfast: 'Jejum intermitente (apenas café puro ou chá) ou Suco verde detox',
-          lunch: '150g de patinho moído + mix de legumes low carb (abobrinha, couve-flor)',
-          snack: '1 porção de Gelatina Monjaro + 5 amêndoas',
-          dinner: '1 filé de frango + salada de folhas verdes com limão'
+          breakfast: 'Ovos mexidos na manteiga com bacon artesanal + Café com óleo de coco.',
+          lunch: '1 taça de Gelatina (sem frutas). Picanha ou sobrecoxa assada + Brócolis e couve-flor na manteiga + 1/4 de abacate.',
+          snack: 'Porção de azeitonas OU queijo curado.',
+          dinner: '1 taça de Gelatina (sem frutas). Salmão ou sardinha + Salada de rúcula com azeite generoso e queijo parmesão.'
+        }
+      },
+      {
+        id: 'jejum',
+        name: 'Fase 4: Manutenção (Jejum 16/8)',
+        level: 'Estilo de Vida',
+        description: 'Janela de alimentação de 8 horas e jejum de 16 horas. A Gelatina é usada para quebrar o jejum suavemente.',
+        meals: {
+          breakfast: 'Durante o jejum: Apenas água, café puro e chás sem açúcar.',
+          lunch: '(Quebra do Jejum - 12h): 1 taça de Gelatina 30 min antes. Refeição: Prato farto de salada, legumes e 200g de proteína magra.',
+          snack: '(16h): Iogurte natural integral com sementes de chia e linhaça.',
+          dinner: '(Fechamento - 20h): 1 taça de Gelatina. Refeição: Omelete recheado com espinafre e frango desfiado.'
         }
       }
     ],
     sweet_recipes: [
-      { name: 'Mousse Fit de Maracujá', description: 'Sobremesa leve e proteica.', ingredients: ['1 polpa de maracujá', '1 iogurte natural', '1 colher de leite em pó desnatado', 'Adoçante'], preparation: 'Bata tudo no liquidificador e gele por 1h.' },
-      { name: 'Brigadeiro de Colher Sem Açúcar', description: 'Para matar a vontade de doce.', ingredients: ['2 colheres de cacau 100%', '1 colher de leite em pó', 'Água quente até dar ponto', 'Adoçante'], preparation: 'Misture os ingredientes secos e adicione água aos poucos.' },
-      { name: 'Sorvete de Banana Rápido', description: 'Refrescante e natural.', ingredients: ['2 bananas congeladas', '1 colher de cacau ou whey protein'], preparation: 'Bata no processador até virar creme.' },
-      { name: 'Bolo de Caneca Low Carb', description: 'Pronto em 2 minutos.', ingredients: ['1 ovo', '1 colher de farinha de amêndoas', '1 colher de cacau', '1 colher de chá de fermento', 'Adoçante'], preparation: 'Misture tudo na caneca e leve ao micro-ondas por 1m30s.' },
-      { name: 'Docinho de Leite Ninho Fit', description: 'Fácil e delicioso.', ingredients: ['4 colheres de leite em pó desnatado', 'Água', 'Adoçante'], preparation: 'Misture até formar uma massinha e enrole.' }
+      { id: 'mousse_maracuja', name: 'Mousse Fit de Maracujá', description: 'Sobremesa leve, proteica e super refrescante. Zero açúcar.', ingredients: ['1 polpa de maracujá natural', '1 pote de iogurte natural desnatado (170g)', '2 colheres de sopa de leite em pó desnatado', 'Adoçante stévia ou eritritol a gosto'], preparation: 'Coloque todos os ingredientes no liquidificador. Bata por cerca de 3 minutos até obter uma mistura homogênea e aerada. Despeje em taças individuais e leve à geladeira por pelo menos 1 hora antes de servir.' },
+      { id: 'brigadeiro', name: 'Brigadeiro de Colher Sem Açúcar', description: 'Para matar a vontade de doce sem sair da dieta. Rico em cacau.', ingredients: ['2 colheres de sopa de cacau em pó 100%', '3 colheres de sopa de leite em pó desnatado', 'Água quente (colocada aos poucos)', 'Adoçante a gosto'], preparation: 'Em uma tigela pequena, misture o cacau, o leite em pó e o adoçante. Vá pingando a água quente aos poucos e mexendo vigorosamente com uma colher até atingir a consistência cremosa de brigadeiro. Coma de colher.' },
+      { id: 'sorvete_banana', name: 'Sorvete de Banana Proteico', description: 'Textura incrível, doce natural e muito refrescante. Ideal para o lanche.', ingredients: ['2 bananas bem maduras, cortadas em rodelas e congeladas', '1 scoop de whey protein (baunilha ou chocolate) OU 1 colher de cacau em pó', 'Um fio de leite vegetal (se necessário para bater)'], preparation: 'Retire as bananas do congelador e deixe em temperatura ambiente por 5 minutos. Coloque no processador de alimentos junto com o whey ou cacau. Bata até formar um creme liso e espesso, semelhante a sorvete. Sirva imediatamente.' },
+      { id: 'bolo_caneca', name: 'Bolo de Caneca Low Carb', description: 'Pronto em 2 minutos para aquele lanche rápido e quentinho.', ingredients: ['1 ovo inteiro', '1 colher de sopa de farinha de amêndoas ou coco', '1 colher de sopa de cacau em pó 100%', '1 colher de chá de fermento em pó', 'Adoçante a gosto', '1 colher de sopa de água ou leite vegetal'], preparation: 'Em uma caneca grande, bata bem o ovo com um garfo. Adicione os ingredientes secos, a água e o adoçante. Misture até ficar homogêneo. Por último, incorpore o fermento delicadamente. Leve ao micro-ondas por 1 minuto e 30 segundos.' },
+      { id: 'beijinho', name: 'Beijinho de Coco Fit', description: 'Docinho rápido, rico em gorduras boas e zero açúcar.', ingredients: ['4 colheres de sopa de coco ralado sem açúcar', '2 colheres de sopa de leite em pó desnatado', '2 colheres de sopa de leite de coco', 'Adoçante a gosto', 'Cravos para decorar'], preparation: 'Misture o coco ralado, o leite em pó e o adoçante. Adicione o leite de coco aos poucos até dar ponto de enrolar. Faça bolinhas, passe no coco ralado e decore com um cravo.' },
+      { id: 'torta_limao', name: 'Tortinha de Limão no Copinho', description: 'Creme azedinho e base crocante, sem farinha de trigo.', ingredients: ['Base: 2 colheres de farinha de amêndoas + 1 colher de óleo de coco', 'Creme: 1 iogurte grego zero', 'Suco de 1 limão', 'Adoçante a gosto', 'Raspas de limão'], preparation: 'Misture a farinha de amêndoas com o óleo de coco e forre o fundo de um copinho. Misture o iogurte com o suco de limão e o adoçante até engrossar. Despeje sobre a base, decore com raspas e gele por 30 min.' },
+      { id: 'pudim_chia', name: 'Pudim de Chia com Frutas', description: 'Excelente para o café da manhã ou lanche da tarde.', ingredients: ['2 colheres de sopa de chia', '100ml de leite de coco ou amêndoas', 'Adoçante a gosto', 'Morangos ou mirtilos para o topo'], preparation: 'Misture a chia, o leite e o adoçante em um pote de vidro. Deixe descansar por 5 minutos e misture novamente para não empelotar. Leve à geladeira por pelo menos 2 horas (ou overnight). Sirva com as frutas por cima.' },
+      { id: 'creme_abacate', name: 'Creme de Abacate com Cacau', description: 'Gorduras boas que saciam e cacau que melhora o humor.', ingredients: ['Meio abacate maduro', '1 colher de sopa de cacau em pó 100%', 'Adoçante a gosto', '1 colher de sopa de leite vegetal'], preparation: 'Bata todos os ingredientes no processador ou liquidificador até formar um creme liso e brilhante. Sirva gelado.' },
+      { id: 'brownie_batata_doce', name: 'Brownie de Batata Doce', description: 'Brownie fit super cremoso e sem farinha de trigo.', ingredients: ['1 xícara de batata doce cozida e amassada', '1/2 xícara de cacau em pó 100%', '1/4 xícara de pasta de amendoim', 'Adoçante a gosto', '1 colher de chá de fermento'], preparation: 'Misture a batata doce, o cacau, a pasta de amendoim e o adoçante até formar uma massa homogênea. Incorpore o fermento. Asse em forno pré-aquecido a 180°C por 20 minutos.' },
+      { id: 'trufa_tamara', name: 'Trufa de Tâmara e Cacau', description: 'Docinho energético natural, perfeito para o pré-treino.', ingredients: ['1 xícara de tâmaras sem caroço', '1/2 xícara de nozes ou amêndoas', '2 colheres de sopa de cacau em pó 100%', 'Coco ralado para enrolar'], preparation: 'Processe as nozes até virar uma farinha grossa. Adicione as tâmaras e o cacau e processe até formar uma massa pegajosa. Faça bolinhas e passe no coco ralado. Guarde na geladeira.' },
+      { id: 'panqueca_aveia', name: 'Panqueca Doce de Aveia', description: 'Café da manhã rápido, rico em fibras e proteínas.', ingredients: ['1 ovo', '2 colheres de sopa de farelo de aveia', '1 colher de sopa de iogurte natural', 'Adoçante a gosto', 'Canela a gosto'], preparation: 'Bata todos os ingredientes com um garfo. Despeje em uma frigideira antiaderente untada com um fio de óleo de coco. Doure dos dois lados. Sirva com frutas ou pasta de amendoim.' },
+      { id: 'muffin_maca', name: 'Muffin de Maçã e Canela', description: 'Bolinho individual fofinho e aromático.', ingredients: ['1 ovo', '2 colheres de sopa de farinha de amêndoas', '1/2 maçã picada em cubinhos', '1 colher de chá de canela', 'Adoçante a gosto', '1 colher de café de fermento'], preparation: 'Misture o ovo, a farinha, a canela e o adoçante. Adicione a maçã picada e o fermento. Coloque em forminhas de silicone e asse a 180°C por 15-20 minutos ou no micro-ondas por 2 minutos.' }
     ],
     pilates: [
       { day: 1, name: 'Cadeirinha na Parede', description: 'Fortalecimento de pernas e glúteos.', instruction: 'Encoste as costas na parede, desça até os joelhos formarem 90 graus. Segure por 30 segundos.' },
