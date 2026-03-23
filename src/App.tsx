@@ -12,6 +12,8 @@ import { Bonus } from './pages/Bonus';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import { Profile } from './pages/Profile';
+import { ProtectedRoute } from './components/ProtectedRoute';
+import { AcessoNegado } from './pages/AcessoNegado';
 
 export default function App() {
   return (
@@ -19,12 +21,17 @@ export default function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Dashboard />} />
-          <Route path="protocol" element={<Protocol />} />
-          <Route path="recipe" element={<Recipe />} />
-          <Route path="bonus" element={<Bonus />} />
-          <Route path="profile" element={<Profile />} />
+        <Route path="/acesso-negado" element={<AcessoNegado />} />
+        
+        {/* Rotas Protegidas */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="protocol" element={<Protocol />} />
+            <Route path="recipe" element={<Recipe />} />
+            <Route path="bonus" element={<Bonus />} />
+            <Route path="profile" element={<Profile />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
