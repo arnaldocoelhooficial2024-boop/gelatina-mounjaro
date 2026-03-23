@@ -2,12 +2,15 @@ import { Outlet, NavLink, Link } from 'react-router-dom';
 import { Home, Calendar, Utensils, Gift, User } from 'lucide-react';
 import { motion } from 'motion/react';
 import { ReactNode } from 'react';
+import { Logo } from './Logo';
 
 export function Layout() {
   return (
     <div className="min-h-screen bg-[#FAFAFA] dark:bg-slate-900 text-slate-900 dark:text-white font-sans selection:bg-brand-200 selection:text-brand-900 pb-32 transition-colors duration-300">
-      <header className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl sticky top-0 px-6 py-5 flex justify-between items-center z-30 border-b border-slate-100/50 dark:border-slate-800/50 transition-colors duration-300">
-        <h1 className="text-2xl font-bold text-brand-600 dark:text-brand-400 tracking-tight font-serif italic">Gelatina Mounjaro</h1>
+      <header className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl sticky top-0 px-6 py-3 flex justify-between items-center z-30 border-b border-slate-100/50 dark:border-slate-800/50 transition-colors duration-300">
+        <Link to="/" className="flex items-center">
+          <Logo className="w-40 h-auto" />
+        </Link>
         <div className="flex items-center gap-2">
           <Link to="/profile" className="w-10 h-10 rounded-full bg-gradient-to-tr from-brand-100 to-brand-50 dark:from-brand-900 dark:to-brand-800 border border-brand-200 dark:border-brand-700 flex items-center justify-center text-brand-700 dark:text-brand-300 font-bold text-sm shadow-sm transition-colors duration-300 hover:scale-105 active:scale-95">
             <User size={18} />

@@ -1,10 +1,17 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+let supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+let supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  console.warn('Variáveis do Supabase não encontradas. O app pode não funcionar corretamente.');
+// Fallback para a URL correta caso a variável de ambiente não tenha sido carregada ou esteja com o valor placeholder
+if (!supabaseUrl || !supabaseUrl.startsWith('http')) {
+  console.warn('VITE_SUPABASE_URL inválida ou ausente. Usando URL de fallback.');
+  supabaseUrl = 'https://frzoyljfxxarkaujhrpi.supabase.co';
 }
 
-export const supabase = createClient(supabaseUrl || 'https://placeholder.supabase.co', supabaseAnonKey || 'placeholder');
+if (!supabaseAnonKey || supabaseAnonKey === 'YOUR_SUPABASE_ANON_KEY') {
+  console.warn('VITE_SUPABASE_ANON_KEY inválida ou ausente.');
+  supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.placeholder'; // Placeholder seguro para não quebrar a inicialização
+}
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);

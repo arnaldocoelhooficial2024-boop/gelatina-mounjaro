@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, User, ArrowRight } from 'lucide-react';
+import { Logo } from '../components/Logo';
 
 export function Register() {
   const [name, setName] = useState('');
@@ -20,8 +21,8 @@ export function Register() {
     <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex flex-col justify-center p-6 text-slate-900 dark:text-white transition-colors duration-300">
       <div className="max-w-md w-full mx-auto space-y-8">
         <div className="text-center space-y-2">
-          <div className="w-20 h-20 mx-auto bg-gradient-to-tr from-brand-600 to-brand-400 rounded-3xl flex items-center justify-center shadow-xl shadow-brand-500/30 mb-6">
-            <span className="text-3xl font-serif font-bold text-white italic">GM</span>
+          <div className="flex justify-center mb-6">
+            <Logo className="w-64 h-auto" />
           </div>
           <h1 className="text-3xl font-serif font-bold tracking-tight">Comece sua jornada</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">Crie sua conta para acessar o protocolo</p>
