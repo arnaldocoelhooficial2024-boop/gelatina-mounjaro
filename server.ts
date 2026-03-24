@@ -3,6 +3,7 @@ import express from "express";
 import { createServer as createViteServer } from "vite";
 import path from "path";
 import caktoWebhookHandler from "./api/webhook/cakto.js";
+import testWebhookHandler from "./api/webhook/test.js";
 
 async function startServer() {
   const app = express();
@@ -20,6 +21,11 @@ async function startServer() {
   app.post("/api/webhook/cakto", async (req, res) => {
     // The handler expects req and res
     await caktoWebhookHandler(req, res);
+  });
+
+  // Mount the Test webhook handler
+  app.all("/api/test-webhook", async (req, res) => {
+    await testWebhookHandler(req, res);
   });
 
   // Vite middleware for development
