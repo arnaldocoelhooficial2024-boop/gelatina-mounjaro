@@ -191,7 +191,7 @@ export function Bonus() {
                 className="bg-white dark:bg-slate-800 w-full max-w-md rounded-[2rem] shadow-2xl overflow-hidden max-h-[90vh] flex flex-col"
                 onClick={(e) => e.stopPropagation()}
               >
-                <div className="p-6 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center bg-gradient-to-r from-pink-50 dark:from-pink-900/20 to-white dark:to-slate-800">
+                <div className="p-6 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center bg-gradient-to-r from-pink-50 dark:from-pink-900/20 to-white dark:to-slate-800 relative z-20">
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 rounded-2xl bg-pink-100 dark:bg-pink-500/20 flex items-center justify-center">
                       <Heart className="text-pink-500 dark:text-pink-400" size={24} />
@@ -208,43 +208,56 @@ export function Bonus() {
                   </motion.button>
                 </div>
                 
-                <div className="p-6 overflow-y-auto space-y-8">
-                  <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{selectedSweet.description}</p>
+                <div className="overflow-y-auto">
+                  {selectedSweet.imageUrl && (
+                    <div className="w-full h-48 relative">
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent z-10"></div>
+                      <img 
+                        src={selectedSweet.imageUrl} 
+                        alt={selectedSweet.name} 
+                        className="w-full h-full object-cover"
+                        referrerPolicy="no-referrer"
+                      />
+                    </div>
+                  )}
+                  <div className="p-6 space-y-8">
+                    <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{selectedSweet.description}</p>
                   
-                  <div>
-                    <h4 className="font-bold text-slate-900 dark:text-white text-xs uppercase tracking-widest mb-4 flex items-center gap-2">
-                      <span className="w-6 h-6 rounded-full bg-pink-50 dark:bg-pink-500/10 text-pink-600 dark:text-pink-400 flex items-center justify-center text-[10px]">1</span>
-                      Ingredientes
-                    </h4>
-                    <ul className="space-y-3">
-                      {selectedSweet.ingredients.map((ing: string, i: number) => (
-                        <motion.li 
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: i * 0.1 }}
-                          key={i} 
-                          className="flex items-start gap-3 text-sm text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-700/50 p-4 rounded-2xl border border-slate-100/50 dark:border-slate-700/50"
-                        >
-                          <div className="w-2 h-2 rounded-full bg-pink-400 dark:bg-pink-500 mt-1.5 shrink-0"></div>
-                          <span className="leading-relaxed">{ing}</span>
-                        </motion.li>
-                      ))}
-                    </ul>
+                    <div>
+                      <h4 className="font-bold text-slate-900 dark:text-white text-xs uppercase tracking-widest mb-4 flex items-center gap-2">
+                        <span className="w-6 h-6 rounded-full bg-pink-50 dark:bg-pink-500/10 text-pink-600 dark:text-pink-400 flex items-center justify-center text-[10px]">1</span>
+                        Ingredientes
+                      </h4>
+                      <ul className="space-y-3">
+                        {selectedSweet.ingredients.map((ing: string, i: number) => (
+                          <motion.li 
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: i * 0.1 }}
+                            key={i} 
+                            className="flex items-start gap-3 text-sm text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-700/50 p-4 rounded-2xl border border-slate-100/50 dark:border-slate-700/50"
+                          >
+                            <div className="w-2 h-2 rounded-full bg-pink-400 dark:bg-pink-500 mt-1.5 shrink-0"></div>
+                            <span className="leading-relaxed">{ing}</span>
+                          </motion.li>
+                        ))}
+                      </ul>
+                    </div>
+                    
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3 }}
+                    >
+                      <h4 className="font-bold text-slate-900 dark:text-white text-xs uppercase tracking-widest mb-4 flex items-center gap-2">
+                        <span className="w-6 h-6 rounded-full bg-pink-50 dark:bg-pink-500/10 text-pink-600 dark:text-pink-400 flex items-center justify-center text-[10px]">2</span>
+                        Modo de Preparo
+                      </h4>
+                      <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed bg-pink-50/50 dark:bg-pink-500/10 p-5 rounded-2xl border border-pink-100/50 dark:border-pink-500/20">
+                        {selectedSweet.preparation}
+                      </p>
+                    </motion.div>
                   </div>
-                  
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 }}
-                  >
-                    <h4 className="font-bold text-slate-900 dark:text-white text-xs uppercase tracking-widest mb-4 flex items-center gap-2">
-                      <span className="w-6 h-6 rounded-full bg-pink-50 dark:bg-pink-500/10 text-pink-600 dark:text-pink-400 flex items-center justify-center text-[10px]">2</span>
-                      Modo de Preparo
-                    </h4>
-                    <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed bg-pink-50/50 dark:bg-pink-500/10 p-5 rounded-2xl border border-pink-100/50 dark:border-pink-500/20">
-                      {selectedSweet.preparation}
-                    </p>
-                  </motion.div>
                 </div>
               </motion.div>
             </motion.div>

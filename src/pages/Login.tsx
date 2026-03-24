@@ -83,12 +83,23 @@ export function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex flex-col justify-center p-6 text-slate-900 dark:text-white transition-colors duration-300">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex flex-col justify-center p-6 text-slate-900 dark:text-white transition-colors duration-300 relative overflow-hidden">
+      {/* Background Image with Overlay */}
+      <div className="absolute inset-0 z-0">
+        <img 
+          src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1200&q=80" 
+          alt="Fitness Background" 
+          className="w-full h-full object-cover opacity-20 dark:opacity-10"
+          referrerPolicy="no-referrer"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-50/80 via-slate-50/95 to-slate-50 dark:from-slate-900/80 dark:via-slate-900/95 dark:to-slate-900"></div>
+      </div>
+
       <motion.div 
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="max-w-md w-full mx-auto space-y-8"
+        className="max-w-md w-full mx-auto space-y-8 relative z-10"
       >
         <div className="text-center space-y-2">
           <motion.div variants={itemVariants} className="flex justify-center mb-6">

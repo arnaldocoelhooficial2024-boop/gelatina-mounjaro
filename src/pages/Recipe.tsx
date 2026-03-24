@@ -88,6 +88,17 @@ export function Recipe() {
             className="space-y-8"
           >
             <motion.div variants={itemVariants} className="space-y-4 text-center">
+              {recipe.imageUrl && (
+                <div className="w-full h-48 rounded-[2rem] overflow-hidden mb-6 shadow-md relative">
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent z-10"></div>
+                  <img 
+                    src={recipe.imageUrl} 
+                    alt={recipe.name} 
+                    className="w-full h-full object-cover"
+                    referrerPolicy="no-referrer"
+                  />
+                </div>
+              )}
               <h3 className="text-3xl font-serif font-bold text-slate-900 dark:text-white leading-tight">{recipe.name}</h3>
               <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed px-4">{recipe.description}</p>
               

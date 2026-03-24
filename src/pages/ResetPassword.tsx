@@ -124,9 +124,21 @@ export function ResetPassword() {
   // Tela de Loading inicial (verificando o token)
   if (isCheckingSession) {
     return (
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex flex-col items-center justify-center p-6 text-slate-900 dark:text-white">
-        <Loader2 className="w-10 h-10 animate-spin text-brand-500 mb-4" />
-        <p className="text-slate-500 font-medium">Validando link de segurança...</p>
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex flex-col items-center justify-center p-6 text-slate-900 dark:text-white relative overflow-hidden">
+        {/* Background Image with Overlay */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1200&q=80" 
+            alt="Fitness Background" 
+            className="w-full h-full object-cover opacity-20 dark:opacity-10"
+            referrerPolicy="no-referrer"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-50/80 via-slate-50/95 to-slate-50 dark:from-slate-900/80 dark:via-slate-900/95 dark:to-slate-900"></div>
+        </div>
+        <div className="relative z-10 flex flex-col items-center">
+          <Loader2 className="w-10 h-10 animate-spin text-brand-500 mb-4" />
+          <p className="text-slate-500 font-medium">Validando link de segurança...</p>
+        </div>
       </div>
     );
   }
@@ -134,11 +146,21 @@ export function ResetPassword() {
   // Tela de Erro (Token inválido ou expirado)
   if (!isSessionValid && !success) {
     return (
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex flex-col justify-center p-6 text-slate-900 dark:text-white">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex flex-col justify-center p-6 text-slate-900 dark:text-white relative overflow-hidden">
+        {/* Background Image with Overlay */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1200&q=80" 
+            alt="Fitness Background" 
+            className="w-full h-full object-cover opacity-20 dark:opacity-10"
+            referrerPolicy="no-referrer"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-50/80 via-slate-50/95 to-slate-50 dark:from-slate-900/80 dark:via-slate-900/95 dark:to-slate-900"></div>
+        </div>
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="max-w-md w-full mx-auto bg-white dark:bg-slate-800 p-8 rounded-[2.5rem] shadow-sm border border-slate-100 dark:border-slate-700 text-center space-y-6"
+          className="max-w-md w-full mx-auto bg-white dark:bg-slate-800 p-8 rounded-[2.5rem] shadow-sm border border-slate-100 dark:border-slate-700 text-center space-y-6 relative z-10"
         >
           <div className="flex justify-center">
             <div className="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center text-red-600 dark:text-red-400">
@@ -163,11 +185,21 @@ export function ResetPassword() {
   // Tela de Sucesso
   if (success) {
     return (
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex flex-col justify-center p-6 text-slate-900 dark:text-white transition-colors duration-300">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex flex-col justify-center p-6 text-slate-900 dark:text-white transition-colors duration-300 relative overflow-hidden">
+        {/* Background Image with Overlay */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1200&q=80" 
+            alt="Fitness Background" 
+            className="w-full h-full object-cover opacity-20 dark:opacity-10"
+            referrerPolicy="no-referrer"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-50/80 via-slate-50/95 to-slate-50 dark:from-slate-900/80 dark:via-slate-900/95 dark:to-slate-900"></div>
+        </div>
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="max-w-md w-full mx-auto bg-white dark:bg-slate-800 p-8 rounded-[2.5rem] shadow-sm border border-slate-100 dark:border-slate-700 text-center space-y-6"
+          className="max-w-md w-full mx-auto bg-white dark:bg-slate-800 p-8 rounded-[2.5rem] shadow-sm border border-slate-100 dark:border-slate-700 text-center space-y-6 relative z-10"
         >
           <div className="flex justify-center">
             <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center text-green-600 dark:text-green-400">
@@ -186,12 +218,23 @@ export function ResetPassword() {
 
   // Formulário de Nova Senha
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex flex-col justify-center p-6 text-slate-900 dark:text-white transition-colors duration-300">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex flex-col justify-center p-6 text-slate-900 dark:text-white transition-colors duration-300 relative overflow-hidden">
+      {/* Background Image with Overlay */}
+      <div className="absolute inset-0 z-0">
+        <img 
+          src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1200&q=80" 
+          alt="Fitness Background" 
+          className="w-full h-full object-cover opacity-20 dark:opacity-10"
+          referrerPolicy="no-referrer"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-50/80 via-slate-50/95 to-slate-50 dark:from-slate-900/80 dark:via-slate-900/95 dark:to-slate-900"></div>
+      </div>
+
       <motion.div 
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="max-w-md w-full mx-auto space-y-8"
+        className="max-w-md w-full mx-auto space-y-8 relative z-10"
       >
         <div className="text-center space-y-2">
           <motion.div variants={itemVariants} className="flex justify-center mb-6">
