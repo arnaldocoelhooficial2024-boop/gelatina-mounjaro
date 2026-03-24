@@ -12,7 +12,7 @@ export function AcessoNegado() {
       </h1>
       <p className="text-slate-600 dark:text-slate-400 max-w-md mb-8 leading-relaxed">
         Seu pagamento ainda está sendo processado ou não foi aprovado. 
-        Assim que a Cacto confirmar o pagamento, seu acesso será liberado automaticamente.
+        Assim que a Cakto confirmar o pagamento, seu acesso será liberado automaticamente.
       </p>
       <Link 
         to="/login" 

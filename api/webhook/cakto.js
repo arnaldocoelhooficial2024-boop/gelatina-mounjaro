@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    // 2. Extração dos dados do payload da Cacto
+    // 2. Extração dos dados do payload da Cakto
     const { status, customer, product, created_at } = req.body;
 
     // 3. Verificação do status do pagamento
@@ -70,7 +70,7 @@ export default async function handler(req, res) {
 
     if (dbError) throw dbError;
 
-    // 7. Resposta de sucesso para a Cacto
+    // 7. Resposta de sucesso para a Cakto
     return res.status(200).json({ 
       success: true, 
       message: 'Usuário processado e acesso liberado com sucesso.' 
