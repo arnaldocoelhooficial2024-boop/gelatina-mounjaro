@@ -4,6 +4,21 @@ import { User, Settings, LogOut, Moon, Sun, Award, ChevronRight, Bell, Shield, H
 import { useNavigate } from 'react-router-dom';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts';
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } }
+};
+
 export function Profile() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [user, setUser] = useState<{ name: string; email: string } | null>(null);
@@ -145,19 +160,24 @@ export function Profile() {
 
   return (
     <motion.div 
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="space-y-6 px-6"
+      variants={containerVariants}
+      initial="hidden"
+      animate="show"
+      className="space-y-6 px-6 pb-24"
     >
-      <header className="flex justify-between items-center mb-6">
+      <motion.header variants={itemVariants} className="flex justify-between items-center mb-6 mt-2">
         <div>
           <h1 className="text-3xl font-serif font-bold text-slate-900 dark:text-white">Perfil</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">Gerencie sua conta e progresso</p>
         </div>
-      </header>
+      </motion.header>
 
       {/* User Info Card */}
-      <div className="bg-white dark:bg-slate-800 rounded-[2rem] p-6 shadow-sm border border-slate-100 dark:border-slate-700 flex items-center gap-5">
+      <motion.div 
+        variants={itemVariants}
+        whileHover={{ scale: 1.02 }}
+        className="bg-white dark:bg-slate-800 rounded-[2rem] p-6 shadow-sm border border-slate-100 dark:border-slate-700 flex items-center gap-5"
+      >
         <div className="w-20 h-20 bg-gradient-to-tr from-brand-600 to-brand-400 rounded-full flex items-center justify-center shadow-lg shadow-brand-500/20 text-white text-2xl font-serif font-bold italic shrink-0">
           {user?.name?.charAt(0) || 'V'}
         </div>
@@ -169,29 +189,40 @@ export function Profile() {
             Membro Premium
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Gamification Stats */}
-      <div className="grid grid-cols-2 gap-4">
-        <div className="bg-white dark:bg-slate-800 rounded-3xl p-5 shadow-sm border border-slate-100 dark:border-slate-700 text-center">
+      <motion.div variants={itemVariants} className="grid grid-cols-2 gap-4">
+        <motion.div 
+          whileHover={{ scale: 1.05 }}
+          className="bg-white dark:bg-slate-800 rounded-3xl p-5 shadow-sm border border-slate-100 dark:border-slate-700 text-center"
+        >
           <div className="text-3xl font-bold text-brand-600 dark:text-brand-400 mb-1">{streak}</div>
           <div className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">Dias Seguidos</div>
-        </div>
-        <div className="bg-white dark:bg-slate-800 rounded-3xl p-5 shadow-sm border border-slate-100 dark:border-slate-700 text-center">
+        </motion.div>
+        <motion.div 
+          whileHover={{ scale: 1.05 }}
+          className="bg-white dark:bg-slate-800 rounded-3xl p-5 shadow-sm border border-slate-100 dark:border-slate-700 text-center"
+        >
           <div className="text-3xl font-bold text-emerald-500 mb-1">{weightLost}</div>
           <div className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">Kg Perdidos</div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       {/* Health Tracking Section */}
-      <div className="bg-white dark:bg-slate-800 rounded-[2rem] shadow-sm border border-slate-100 dark:border-slate-700 overflow-hidden p-6">
+      <motion.div 
+        variants={itemVariants}
+        className="bg-white dark:bg-slate-800 rounded-[2rem] shadow-sm border border-slate-100 dark:border-slate-700 overflow-hidden p-6"
+      >
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-lg font-serif font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <Activity className="text-brand-500" size={20} />
             Acompanhamento
           </h3>
           {!isEditingHealth ? (
-            <button 
+            <motion.button 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => {
                 setTempWeight(currentWeight);
                 setTempHeight(height);
@@ -201,19 +232,25 @@ export function Profile() {
               className="text-sm font-bold text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-500/10 px-4 py-2 rounded-full hover:bg-brand-100 dark:hover:bg-brand-500/20 transition-colors"
             >
               Atualizar
-            </button>
+            </motion.button>
           ) : (
-            <button 
+            <motion.button 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={handleSaveHealth}
               className="text-sm font-bold text-white bg-brand-600 px-4 py-2 rounded-full hover:bg-brand-700 transition-colors flex items-center gap-1"
             >
               <Check size={16} /> Salvar
-            </button>
+            </motion.button>
           )}
         </div>
 
         {isEditingHealth ? (
-          <div className="space-y-4 mb-6">
+          <motion.div 
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            className="space-y-4 mb-6"
+          >
             <div>
               <label className="block text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-2">Peso Atual (kg)</label>
               <div className="relative">
@@ -223,7 +260,7 @@ export function Profile() {
                   step="0.1"
                   value={tempWeight}
                   onChange={(e) => setTempWeight(e.target.value)}
-                  className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl py-3 pl-12 pr-4 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20"
+                  className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl py-3 pl-12 pr-4 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-all"
                   placeholder="Ex: 75.5"
                 />
               </div>
@@ -237,7 +274,7 @@ export function Profile() {
                     type="number" 
                     value={tempHeight}
                     onChange={(e) => setTempHeight(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl py-3 pl-12 pr-4 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20"
+                    className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl py-3 pl-12 pr-4 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-all"
                     placeholder="Ex: 165"
                   />
                 </div>
@@ -251,15 +288,19 @@ export function Profile() {
                     step="0.1"
                     value={tempGoal}
                     onChange={(e) => setTempGoal(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl py-3 pl-12 pr-4 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20"
+                    className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl py-3 pl-12 pr-4 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-all"
                     placeholder="Ex: 65.0"
                   />
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         ) : (
-          <div className="grid grid-cols-3 gap-4 mb-8">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="grid grid-cols-3 gap-4 mb-8"
+          >
             <div className="bg-slate-50 dark:bg-slate-900/50 rounded-2xl p-4 text-center border border-slate-100 dark:border-slate-700/50">
               <div className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-1">Peso</div>
               <div className="text-xl font-bold text-slate-900 dark:text-white">{currentWeight || '--'} <span className="text-sm font-normal text-slate-500">kg</span></div>
@@ -273,7 +314,7 @@ export function Profile() {
               <div className="text-xl font-bold text-slate-900 dark:text-white">{imc > 0 ? imc.toFixed(1) : '--'}</div>
               {imcCategory && <div className="text-[10px] font-medium text-slate-500 mt-1 leading-tight">{imcCategory}</div>}
             </div>
-          </div>
+          </motion.div>
         )}
 
         {/* Chart */}
@@ -326,18 +367,23 @@ export function Profile() {
             </p>
           </div>
         )}
-      </div>
+      </motion.div>
 
       {/* Settings List */}
-      <div className="bg-white dark:bg-slate-800 rounded-[2rem] shadow-sm border border-slate-100 dark:border-slate-700 overflow-hidden">
+      <motion.div 
+        variants={itemVariants}
+        className="bg-white dark:bg-slate-800 rounded-[2rem] shadow-sm border border-slate-100 dark:border-slate-700 overflow-hidden"
+      >
         <div className="p-4 border-b border-slate-100 dark:border-slate-700">
           <h3 className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 ml-2">Preferências</h3>
         </div>
         
         <div className="divide-y divide-slate-100 dark:divide-slate-700/50">
-          <button 
+          <motion.button 
+            whileHover={{ backgroundColor: isDarkMode ? 'rgba(51, 65, 85, 0.5)' : 'rgba(248, 250, 252, 1)' }}
+            whileTap={{ scale: 0.98 }}
             onClick={toggleDarkMode}
-            className="w-full flex items-center justify-between p-5 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors"
+            className="w-full flex items-center justify-between p-5 transition-colors"
           >
             <div className="flex items-center gap-3 text-slate-700 dark:text-slate-200">
               <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-500 dark:text-slate-400">
@@ -348,9 +394,13 @@ export function Profile() {
             <div className={`w-12 h-6 rounded-full p-1 transition-colors ${isDarkMode ? 'bg-brand-500' : 'bg-slate-200 dark:bg-slate-600'}`}>
               <div className={`w-4 h-4 rounded-full bg-white transition-transform ${isDarkMode ? 'translate-x-6' : 'translate-x-0'}`} />
             </div>
-          </button>
+          </motion.button>
 
-          <button className="w-full flex items-center justify-between p-5 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
+          <motion.button 
+            whileHover={{ backgroundColor: isDarkMode ? 'rgba(51, 65, 85, 0.5)' : 'rgba(248, 250, 252, 1)' }}
+            whileTap={{ scale: 0.98 }}
+            className="w-full flex items-center justify-between p-5 transition-colors"
+          >
             <div className="flex items-center gap-3 text-slate-700 dark:text-slate-200">
               <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-500 dark:text-slate-400">
                 <Bell size={20} />
@@ -358,17 +408,24 @@ export function Profile() {
               <span className="font-medium">Notificações</span>
             </div>
             <ChevronRight size={20} className="text-slate-400" />
-          </button>
+          </motion.button>
         </div>
-      </div>
+      </motion.div>
 
-      <div className="bg-white dark:bg-slate-800 rounded-[2rem] shadow-sm border border-slate-100 dark:border-slate-700 overflow-hidden">
+      <motion.div 
+        variants={itemVariants}
+        className="bg-white dark:bg-slate-800 rounded-[2rem] shadow-sm border border-slate-100 dark:border-slate-700 overflow-hidden"
+      >
         <div className="p-4 border-b border-slate-100 dark:border-slate-700">
           <h3 className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 ml-2">Conta</h3>
         </div>
         
         <div className="divide-y divide-slate-100 dark:divide-slate-700/50">
-          <button className="w-full flex items-center justify-between p-5 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
+          <motion.button 
+            whileHover={{ backgroundColor: isDarkMode ? 'rgba(51, 65, 85, 0.5)' : 'rgba(248, 250, 252, 1)' }}
+            whileTap={{ scale: 0.98 }}
+            className="w-full flex items-center justify-between p-5 transition-colors"
+          >
             <div className="flex items-center gap-3 text-slate-700 dark:text-slate-200">
               <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-500 dark:text-slate-400">
                 <User size={20} />
@@ -376,9 +433,13 @@ export function Profile() {
               <span className="font-medium">Editar Perfil</span>
             </div>
             <ChevronRight size={20} className="text-slate-400" />
-          </button>
+          </motion.button>
 
-          <button className="w-full flex items-center justify-between p-5 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
+          <motion.button 
+            whileHover={{ backgroundColor: isDarkMode ? 'rgba(51, 65, 85, 0.5)' : 'rgba(248, 250, 252, 1)' }}
+            whileTap={{ scale: 0.98 }}
+            className="w-full flex items-center justify-between p-5 transition-colors"
+          >
             <div className="flex items-center gap-3 text-slate-700 dark:text-slate-200">
               <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-500 dark:text-slate-400">
                 <Shield size={20} />
@@ -386,9 +447,13 @@ export function Profile() {
               <span className="font-medium">Privacidade e Segurança</span>
             </div>
             <ChevronRight size={20} className="text-slate-400" />
-          </button>
+          </motion.button>
 
-          <button className="w-full flex items-center justify-between p-5 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
+          <motion.button 
+            whileHover={{ backgroundColor: isDarkMode ? 'rgba(51, 65, 85, 0.5)' : 'rgba(248, 250, 252, 1)' }}
+            whileTap={{ scale: 0.98 }}
+            className="w-full flex items-center justify-between p-5 transition-colors"
+          >
             <div className="flex items-center gap-3 text-slate-700 dark:text-slate-200">
               <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-500 dark:text-slate-400">
                 <HelpCircle size={20} />
@@ -396,21 +461,24 @@ export function Profile() {
               <span className="font-medium">Ajuda e Suporte</span>
             </div>
             <ChevronRight size={20} className="text-slate-400" />
-          </button>
+          </motion.button>
         </div>
-      </div>
+      </motion.div>
 
-      <button 
+      <motion.button 
+        variants={itemVariants}
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
         onClick={handleLogout}
         className="w-full flex items-center justify-center gap-2 p-5 text-red-500 font-bold hover:bg-red-50 dark:hover:bg-red-500/10 rounded-2xl transition-colors"
       >
         <LogOut size={20} />
         Sair da Conta
-      </button>
+      </motion.button>
 
-      <div className="text-center pb-8 pt-4">
+      <motion.div variants={itemVariants} className="text-center pb-8 pt-4">
         <p className="text-xs text-slate-400">Gelatina Mounjaro v1.0.0</p>
-      </div>
+      </motion.div>
     </motion.div>
   );
 }

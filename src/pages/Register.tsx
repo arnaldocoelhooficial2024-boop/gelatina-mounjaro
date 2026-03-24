@@ -41,22 +41,51 @@ export function Register() {
     }
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { type: "spring", stiffness: 300, damping: 24 }
+    }
+  };
+
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex flex-col justify-center p-6 text-slate-900 dark:text-white transition-colors duration-300">
-      <div className="max-w-md w-full mx-auto space-y-8">
+      <motion.div 
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="max-w-md w-full mx-auto space-y-8"
+      >
         <div className="text-center space-y-2">
-          <div className="flex justify-center mb-6">
+          <motion.div variants={itemVariants} className="flex justify-center mb-6">
             <Logo className="w-64 h-auto" />
-          </div>
-          <h1 className="text-3xl font-serif font-bold tracking-tight">Comece sua jornada</h1>
-          <p className="text-slate-500 dark:text-slate-400 text-sm">Crie sua conta para acessar o protocolo</p>
+          </motion.div>
+          <motion.h1 variants={itemVariants} className="text-3xl font-serif font-bold tracking-tight">Comece sua jornada</motion.h1>
+          <motion.p variants={itemVariants} className="text-slate-500 dark:text-slate-400 text-sm">Crie sua conta para acessar o protocolo</motion.p>
         </div>
 
-        <form onSubmit={handleRegister} className="space-y-5 bg-white dark:bg-slate-800 p-8 rounded-[2.5rem] shadow-sm border border-slate-100 dark:border-slate-700">
+        <motion.form variants={itemVariants} onSubmit={handleRegister} className="space-y-5 bg-white dark:bg-slate-800 p-8 rounded-[2.5rem] shadow-sm border border-slate-100 dark:border-slate-700">
           {error && (
-            <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-800 rounded-xl text-sm text-red-600 dark:text-red-400 text-center">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-800 rounded-xl text-sm text-red-600 dark:text-red-400 text-center"
+            >
               {error}
-            </div>
+            </motion.div>
           )}
 
           <div className="space-y-1.5">
@@ -110,7 +139,9 @@ export function Register() {
             </div>
           </div>
 
-          <button
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
             type="submit"
             disabled={isLoading}
             className="w-full bg-slate-900 dark:bg-brand-600 text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-brand-600 dark:hover:bg-brand-500 transition-colors shadow-lg shadow-slate-900/20 dark:shadow-brand-900/20 mt-4 disabled:opacity-70 disabled:cursor-not-allowed"
@@ -118,16 +149,16 @@ export function Register() {
             {isLoading ? 'Criando...' : (
               <>Criar conta <ArrowRight size={18} /></>
             )}
-          </button>
-        </form>
+          </motion.button>
+        </motion.form>
 
-        <p className="text-center text-sm text-slate-500 dark:text-slate-400">
+        <motion.p variants={itemVariants} className="text-center text-sm text-slate-500 dark:text-slate-400">
           Já tem uma conta?{' '}
           <Link to="/login" className="font-bold text-brand-600 dark:text-brand-400 hover:underline">
             Fazer login
           </Link>
-        </p>
-      </div>
+        </motion.p>
+      </motion.div>
     </div>
   );
 }

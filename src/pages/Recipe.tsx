@@ -1,7 +1,22 @@
 import { useState } from 'react';
-import { Check, Flame, Droplets, Leaf, Moon, Zap, Clock, UtensilsCrossed } from 'lucide-react';
+import { Check, Flame, Droplets, Leaf, Moon, Zap, Clock, UtensilsCrossed, ChevronRight } from 'lucide-react';
 import { appData } from '../data/appData';
 import { motion, AnimatePresence } from 'motion/react';
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } }
+};
 
 export function Recipe() {
   const [selectedRecipeId, setSelectedRecipeId] = useState(appData.recipes[0].id);
@@ -29,20 +44,24 @@ export function Recipe() {
   };
 
   return (
-    <div>
+    <div className="pb-24">
       {/* Premium Header */}
-      <div className="bg-slate-900 dark:bg-slate-950 text-white pt-12 pb-8 px-6 rounded-b-[3rem] shadow-xl relative overflow-hidden transition-colors duration-300">
+      <motion.div 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="bg-slate-900 dark:bg-slate-950 text-white pt-12 pb-8 px-6 rounded-b-[3rem] shadow-xl relative overflow-hidden transition-colors duration-300"
+      >
         <div className="absolute top-0 right-0 w-64 h-64 bg-brand-500/20 dark:bg-brand-500/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
         <div className="relative z-10 max-w-md mx-auto">
           <h2 className="text-4xl font-serif font-bold tracking-tight mb-2">Receitas</h2>
           <p className="text-brand-200 dark:text-brand-400 text-sm">Variações exclusivas para o seu protocolo.</p>
           
           <div className="pt-8 pb-2">
-            <div className="relative">
+            <div className="relative group">
               <select
                 value={selectedRecipeId}
                 onChange={(e) => handleRecipeChange(e.target.value)}
-                className="w-full appearance-none bg-white/10 dark:bg-slate-800/50 border border-white/20 dark:border-slate-700/50 text-white rounded-2xl px-5 py-4 font-bold text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 backdrop-blur-md shadow-lg"
+                className="w-full appearance-none bg-white/10 dark:bg-slate-800/50 border border-white/20 dark:border-slate-700/50 text-white rounded-2xl px-5 py-4 font-bold text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 backdrop-blur-md shadow-lg transition-all group-hover:bg-white/15"
               >
                 {appData.recipes.map((r) => (
                   <option key={r.id} value={r.id} className="text-slate-900 dark:text-white bg-white dark:bg-slate-800">
@@ -50,57 +69,73 @@ export function Recipe() {
                   </option>
                 ))}
               </select>
-              <div className="absolute inset-y-0 right-0 flex items-center px-5 pointer-events-none text-white/70">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
+              <div className="absolute inset-y-0 right-0 flex items-center px-5 pointer-events-none text-white/70 group-hover:text-white transition-colors">
+                <ChevronRight className="w-5 h-5 rotate-90" />
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
-      <div className="p-6 space-y-8 max-w-md mx-auto mt-4">
+      <div className="p-6 max-w-md mx-auto mt-2">
         <AnimatePresence mode="wait">
           <motion.div
             key={recipe.id}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3 }}
+            variants={containerVariants}
+            initial="hidden"
+            animate="show"
+            exit={{ opacity: 0, y: -20, transition: { duration: 0.2 } }}
             className="space-y-8"
           >
-            <div className="space-y-4 text-center">
+            <motion.div variants={itemVariants} className="space-y-4 text-center">
               <h3 className="text-3xl font-serif font-bold text-slate-900 dark:text-white leading-tight">{recipe.name}</h3>
               <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed px-4">{recipe.description}</p>
               
               <div className="flex items-center justify-center gap-6 pt-2">
-                <div className="flex items-center gap-2 text-slate-400 dark:text-slate-500 text-xs font-bold uppercase tracking-widest">
+                <div className="flex items-center gap-2 text-slate-400 dark:text-slate-500 text-xs font-bold uppercase tracking-widest bg-slate-100 dark:bg-slate-800/50 px-4 py-2 rounded-full">
                   <Clock size={14} className="text-brand-500 dark:text-brand-400" /> 5 Min
                 </div>
-                <div className="flex items-center gap-2 text-slate-400 dark:text-slate-500 text-xs font-bold uppercase tracking-widest">
+                <div className="flex items-center gap-2 text-slate-400 dark:text-slate-500 text-xs font-bold uppercase tracking-widest bg-slate-100 dark:bg-slate-800/50 px-4 py-2 rounded-full">
                   <UtensilsCrossed size={14} className="text-brand-500 dark:text-brand-400" /> 1 Porção
                 </div>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="flex gap-4 overflow-x-auto snap-x hide-scrollbar pb-2">
+            <motion.div variants={itemVariants} className="flex gap-4 overflow-x-auto snap-x hide-scrollbar pb-2 pt-2">
               {recipe.tags.map((tag, idx) => (
-                <div key={idx} className="snap-center shrink-0 flex flex-col items-center justify-center bg-white dark:bg-slate-800 w-24 h-24 rounded-[2rem] border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow">
+                <motion.div 
+                  key={idx} 
+                  whileHover={{ y: -5, scale: 1.05 }}
+                  className="snap-center shrink-0 flex flex-col items-center justify-center bg-white dark:bg-slate-800 w-24 h-24 rounded-[2rem] border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-md transition-all cursor-default"
+                >
                   {getTagIcon(tag)}
                   <span className="text-[9px] font-bold text-slate-600 dark:text-slate-400 uppercase tracking-widest text-center px-2">{tag}</span>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
 
-            <section className="bg-white dark:bg-slate-800 rounded-[2rem] p-8 border border-slate-100 dark:border-slate-700 shadow-sm transition-colors duration-300">
-              <h3 className="text-xl font-serif font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-3">
-                <span className="w-8 h-8 rounded-full bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 flex items-center justify-center text-sm font-sans">1</span>
-                Ingredientes
-              </h3>
-              <ul className="space-y-3">
+            <motion.section variants={itemVariants} className="bg-white dark:bg-slate-800 rounded-[2rem] p-8 border border-slate-100 dark:border-slate-700 shadow-sm transition-colors duration-300">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-xl font-serif font-bold text-slate-900 dark:text-white flex items-center gap-3">
+                  <span className="w-8 h-8 rounded-full bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 flex items-center justify-center text-sm font-sans">1</span>
+                  Ingredientes
+                </h3>
+                <span className="text-xs font-bold text-slate-400 bg-slate-100 dark:bg-slate-700 px-3 py-1 rounded-full">
+                  {checkedIngredients.length}/{recipe.ingredients.length}
+                </span>
+              </div>
+              
+              <motion.ul 
+                variants={containerVariants}
+                initial="hidden"
+                animate="show"
+                className="space-y-3"
+              >
                 {recipe.ingredients.map((item, idx) => (
-                  <li 
+                  <motion.li 
+                    variants={itemVariants}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                     key={idx} 
                     className={`flex items-center gap-4 p-4 rounded-2xl border transition-all duration-300 cursor-pointer shadow-sm ${
                       checkedIngredients.includes(idx) 
@@ -112,34 +147,56 @@ export function Recipe() {
                     <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${
                       checkedIngredients.includes(idx) ? 'bg-brand-500 dark:bg-brand-600 border-brand-500 dark:border-brand-600' : 'border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800'
                     }`}>
-                      {checkedIngredients.includes(idx) && <Check size={14} className="text-white" strokeWidth={3} />}
+                      <AnimatePresence>
+                        {checkedIngredients.includes(idx) && (
+                          <motion.div
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            exit={{ scale: 0 }}
+                          >
+                            <Check size={14} className="text-white" strokeWidth={3} />
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
                     <span className={`text-sm leading-relaxed transition-all ${checkedIngredients.includes(idx) ? 'line-through opacity-60' : ''}`}>{item}</span>
-                  </li>
+                  </motion.li>
                 ))}
-              </ul>
-            </section>
+              </motion.ul>
+            </motion.section>
 
-            <section className="bg-white dark:bg-slate-800 rounded-[2rem] p-8 border border-slate-100 dark:border-slate-700 shadow-sm transition-colors duration-300">
+            <motion.section variants={itemVariants} className="bg-white dark:bg-slate-800 rounded-[2rem] p-8 border border-slate-100 dark:border-slate-700 shadow-sm transition-colors duration-300">
               <h3 className="text-xl font-serif font-bold text-slate-900 dark:text-white mb-8 flex items-center gap-3">
                 <span className="w-8 h-8 rounded-full bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 flex items-center justify-center text-sm font-sans">2</span>
                 Modo de Preparo
               </h3>
-              <div className="space-y-6 relative before:absolute before:inset-0 before:ml-[1.125rem] before:-translate-x-px before:h-full before:w-0.5 before:bg-gradient-to-b before:from-brand-200 dark:before:from-brand-800 before:via-brand-100 dark:before:via-brand-900/50 before:to-transparent">
+              <motion.div 
+                variants={containerVariants}
+                initial="hidden"
+                animate="show"
+                className="space-y-6 relative before:absolute before:inset-0 before:ml-[1.125rem] before:-translate-x-px before:h-full before:w-0.5 before:bg-gradient-to-b before:from-brand-200 dark:before:from-brand-800 before:via-brand-100 dark:before:via-brand-900/50 before:to-transparent"
+              >
                 {recipe.preparation.map((step, idx) => (
-                  <div key={idx} className="relative flex items-start gap-6 group">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white dark:border-slate-800 bg-brand-100 dark:bg-brand-900/50 text-brand-700 dark:text-brand-400 shadow-sm shrink-0 z-10 font-bold text-sm group-hover:bg-brand-500 dark:group-hover:bg-brand-600 group-hover:text-white transition-colors">
+                  <motion.div variants={itemVariants} key={idx} className="relative flex items-start gap-6 group">
+                    <motion.div 
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      className="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white dark:border-slate-800 bg-brand-100 dark:bg-brand-900/50 text-brand-700 dark:text-brand-400 shadow-sm shrink-0 z-10 font-bold text-sm group-hover:bg-brand-500 dark:group-hover:bg-brand-600 group-hover:text-white transition-colors cursor-default"
+                    >
                       {idx + 1}
+                    </motion.div>
+                    <div className="pt-2 pb-6 bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl border border-slate-100 dark:border-slate-700 w-full group-hover:border-brand-200 dark:group-hover:border-brand-700 transition-colors">
+                      <p className="text-slate-700 dark:text-slate-300 text-sm leading-relaxed">{step}</p>
                     </div>
-                    <div className="pt-2 pb-6">
-                      <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{step}</p>
-                    </div>
-                  </div>
+                  </motion.div>
                 ))}
-              </div>
-            </section>
+              </motion.div>
+            </motion.section>
 
-            <section className="bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-950/30 dark:to-amber-950/30 rounded-[2rem] p-8 border border-orange-100/50 dark:border-orange-900/30 shadow-sm relative overflow-hidden transition-colors duration-300">
+            <motion.section 
+              variants={itemVariants}
+              whileHover={{ scale: 1.02 }}
+              className="bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-950/30 dark:to-amber-950/30 rounded-[2rem] p-8 border border-orange-100/50 dark:border-orange-900/30 shadow-sm relative overflow-hidden transition-colors duration-300"
+            >
               <div className="absolute top-0 right-0 w-32 h-32 bg-orange-200/30 dark:bg-orange-500/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
               <div className="relative z-10">
                 <h3 className="font-bold text-orange-800 dark:text-orange-500 mb-3 uppercase tracking-widest text-[10px] flex items-center gap-2">
@@ -147,7 +204,7 @@ export function Recipe() {
                 </h3>
                 <p className="text-orange-900/80 dark:text-orange-200/80 text-sm leading-relaxed font-medium">{recipe.tips[0]}</p>
               </div>
-            </section>
+            </motion.section>
           </motion.div>
         </AnimatePresence>
       </div>

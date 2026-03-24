@@ -4,14 +4,39 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Apple, Heart, ChevronRight, X, Activity, ChevronDown } from 'lucide-react';
 import { appData } from '../data/appData';
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.05
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } }
+};
+
 export function Bonus() {
   const [activeTab, setActiveTab] = useState<'diet' | 'sweet' | 'pilates'>('diet');
   const [selectedSweet, setSelectedSweet] = useState<any | null>(null);
 
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="pb-24"
+    >
       {/* Premium Header */}
-      <div className="bg-slate-900 dark:bg-slate-950 text-white pt-12 pb-8 px-6 rounded-b-[3rem] shadow-xl relative overflow-hidden transition-colors duration-300">
+      <motion.div 
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ type: "spring", stiffness: 300, damping: 24 }}
+        className="bg-slate-900 dark:bg-slate-950 text-white pt-12 pb-8 px-6 rounded-b-[3rem] shadow-xl relative overflow-hidden transition-colors duration-300"
+      >
         <div className="absolute top-0 right-0 w-64 h-64 bg-brand-500/20 dark:bg-brand-500/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
         <div className="relative z-10 max-w-md mx-auto">
           <h2 className="text-4xl font-serif font-bold tracking-tight mb-2">Bônus</h2>
@@ -22,7 +47,7 @@ export function Bonus() {
               <select
                 value={activeTab}
                 onChange={(e) => setActiveTab(e.target.value as 'diet' | 'sweet' | 'pilates')}
-                className="w-full appearance-none bg-white/10 dark:bg-slate-800/50 border border-white/20 dark:border-slate-700/50 text-white rounded-2xl px-5 py-4 font-bold text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 backdrop-blur-md shadow-lg"
+                className="w-full appearance-none bg-white/10 dark:bg-slate-800/50 border border-white/20 dark:border-slate-700/50 text-white rounded-2xl px-5 py-4 font-bold text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 backdrop-blur-md shadow-lg transition-all"
               >
                 <option value="diet" className="text-slate-900 dark:text-white bg-white dark:bg-slate-800">Dietas do Cefit</option>
                 <option value="sweet" className="text-slate-900 dark:text-white bg-white dark:bg-slate-800">Doces Fit</option>
@@ -34,25 +59,32 @@ export function Bonus() {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       <div className="p-6 space-y-8 max-w-md mx-auto mt-4">
         <AnimatePresence mode="wait">
-          <motion.div
-            key={activeTab}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-          >
           {activeTab === 'diet' && (
-            <div className="space-y-6">
+            <motion.div
+              key="diet"
+              variants={containerVariants}
+              initial="hidden"
+              animate="show"
+              exit={{ opacity: 0, y: -10, transition: { duration: 0.2 } }}
+              className="space-y-6"
+            >
               {appData.bonus.diet_plans.map((plan) => (
-                <div key={plan.id} className="bg-white dark:bg-slate-800 rounded-[2rem] border border-slate-100 dark:border-slate-700 p-8 shadow-sm hover:shadow-md transition-shadow">
+                <motion.div 
+                  variants={itemVariants}
+                  key={plan.id} 
+                  className="bg-white dark:bg-slate-800 rounded-[2rem] border border-slate-100 dark:border-slate-700 p-8 shadow-sm hover:shadow-md transition-shadow"
+                >
                   <div className="flex items-center gap-5 mb-6">
-                    <div className="w-14 h-14 rounded-2xl bg-brand-50 dark:bg-brand-900/30 flex items-center justify-center shrink-0">
+                    <motion.div 
+                      whileHover={{ rotate: 10, scale: 1.05 }}
+                      className="w-14 h-14 rounded-2xl bg-brand-50 dark:bg-brand-900/30 flex items-center justify-center shrink-0"
+                    >
                       <Apple className="text-brand-600 dark:text-brand-400" size={28} strokeWidth={2} />
-                    </div>
+                    </motion.div>
                     <div>
                       <h3 className="text-xl font-serif font-bold text-slate-900 dark:text-white leading-tight">{plan.name}</h3>
                       <p className="text-[9px] font-bold uppercase tracking-widest text-brand-500 dark:text-brand-400 mt-1.5">{plan.level}</p>
@@ -65,15 +97,25 @@ export function Bonus() {
                     <MealRow label="Lanche" desc={plan.meals.snack} />
                     <MealRow label="Jantar" desc={plan.meals.dinner} />
                   </div>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           )}
 
           {activeTab === 'sweet' && (
-            <div className="space-y-4">
+            <motion.div
+              key="sweet"
+              variants={containerVariants}
+              initial="hidden"
+              animate="show"
+              exit={{ opacity: 0, y: -10, transition: { duration: 0.2 } }}
+              className="space-y-4"
+            >
               {appData.bonus.sweet_recipes.map((recipe) => (
-                <button 
+                <motion.button 
+                  variants={itemVariants}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                   key={recipe.id}
                   onClick={() => setSelectedSweet(recipe)}
                   className="w-full text-left bg-white dark:bg-slate-800 rounded-[2rem] border border-slate-100 dark:border-slate-700 p-6 shadow-sm flex items-center justify-between group hover:border-pink-200 dark:hover:border-pink-800 hover:shadow-md transition-all duration-300"
@@ -88,19 +130,33 @@ export function Bonus() {
                     </div>
                   </div>
                   <ChevronRight className="text-slate-300 dark:text-slate-600 group-hover:text-pink-500 dark:group-hover:text-pink-400 transition-colors shrink-0" />
-                </button>
+                </motion.button>
               ))}
-            </div>
+            </motion.div>
           )}
 
           {activeTab === 'pilates' && (
-            <div className="space-y-4">
+            <motion.div
+              key="pilates"
+              variants={containerVariants}
+              initial="hidden"
+              animate="show"
+              exit={{ opacity: 0, y: -10, transition: { duration: 0.2 } }}
+              className="space-y-4"
+            >
               {appData.bonus.pilates.map((exercise, idx) => (
-                <div key={idx} className="bg-white dark:bg-slate-800 rounded-[2rem] border border-slate-100 dark:border-slate-700 p-6 shadow-sm hover:shadow-md transition-shadow">
+                <motion.div 
+                  variants={itemVariants}
+                  key={idx} 
+                  className="bg-white dark:bg-slate-800 rounded-[2rem] border border-slate-100 dark:border-slate-700 p-6 shadow-sm hover:shadow-md transition-shadow"
+                >
                   <div className="flex items-center gap-5 mb-5">
-                    <div className="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-500/10 flex items-center justify-center font-bold text-indigo-600 dark:text-indigo-400 text-xl font-serif shrink-0">
+                    <motion.div 
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      className="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-500/10 flex items-center justify-center font-bold text-indigo-600 dark:text-indigo-400 text-xl font-serif shrink-0"
+                    >
                       {exercise.day}
-                    </div>
+                    </motion.div>
                     <div>
                       <h4 className="font-bold text-slate-900 dark:text-white font-serif text-lg leading-tight">{exercise.name}</h4>
                       <p className="text-[9px] text-indigo-500 dark:text-indigo-400 font-bold uppercase tracking-widest mt-1.5">{exercise.description}</p>
@@ -109,12 +165,11 @@ export function Bonus() {
                   <p className="text-sm text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-700/50 p-5 rounded-2xl border border-slate-100/50 dark:border-slate-700/50 leading-relaxed">
                     {exercise.instruction}
                   </p>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           )}
-        </motion.div>
-      </AnimatePresence>
+        </AnimatePresence>
       </div>
 
       {/* Modal for Sweet Recipes */}
@@ -143,12 +198,14 @@ export function Bonus() {
                     </div>
                     <h3 className="font-serif font-bold text-xl text-slate-900 dark:text-white leading-tight">{selectedSweet.name}</h3>
                   </div>
-                  <button 
+                  <motion.button 
+                    whileHover={{ scale: 1.1, rotate: 90 }}
+                    whileTap={{ scale: 0.9 }}
                     onClick={() => setSelectedSweet(null)}
                     className="w-10 h-10 rounded-full bg-white dark:bg-slate-700 flex items-center justify-center text-slate-400 dark:text-slate-300 hover:text-slate-600 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-600 transition-colors shadow-sm border border-slate-100 dark:border-slate-600"
                   >
                     <X size={20} />
-                  </button>
+                  </motion.button>
                 </div>
                 
                 <div className="p-6 overflow-y-auto space-y-8">
@@ -161,15 +218,25 @@ export function Bonus() {
                     </h4>
                     <ul className="space-y-3">
                       {selectedSweet.ingredients.map((ing: string, i: number) => (
-                        <li key={i} className="flex items-start gap-3 text-sm text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-700/50 p-4 rounded-2xl border border-slate-100/50 dark:border-slate-700/50">
+                        <motion.li 
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: i * 0.1 }}
+                          key={i} 
+                          className="flex items-start gap-3 text-sm text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-700/50 p-4 rounded-2xl border border-slate-100/50 dark:border-slate-700/50"
+                        >
                           <div className="w-2 h-2 rounded-full bg-pink-400 dark:bg-pink-500 mt-1.5 shrink-0"></div>
                           <span className="leading-relaxed">{ing}</span>
-                        </li>
+                        </motion.li>
                       ))}
                     </ul>
                   </div>
                   
-                  <div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                  >
                     <h4 className="font-bold text-slate-900 dark:text-white text-xs uppercase tracking-widest mb-4 flex items-center gap-2">
                       <span className="w-6 h-6 rounded-full bg-pink-50 dark:bg-pink-500/10 text-pink-600 dark:text-pink-400 flex items-center justify-center text-[10px]">2</span>
                       Modo de Preparo
@@ -177,7 +244,7 @@ export function Bonus() {
                     <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed bg-pink-50/50 dark:bg-pink-500/10 p-5 rounded-2xl border border-pink-100/50 dark:border-pink-500/20">
                       {selectedSweet.preparation}
                     </p>
-                  </div>
+                  </motion.div>
                 </div>
               </motion.div>
             </motion.div>
@@ -185,7 +252,7 @@ export function Bonus() {
         </AnimatePresence>,
         document.body
       )}
-    </div>
+    </motion.div>
   );
 }
 
