@@ -10,9 +10,10 @@ export function ProtectedRoute() {
   useEffect(() => {
     const checkAccess = async () => {
       try {
-        const { data: { session } } = await supabase.auth.getSession();
+        // Obter usuário logado
+        const { data: { user } } = await supabase.auth.getUser();
         
-        if (!session) {
+        if (!user) {
           setIsAuthenticated(false);
           setIsLoading(false);
           return;
@@ -20,14 +21,15 @@ export function ProtectedRoute() {
 
         setIsAuthenticated(true);
 
-        // Verifica se o usuário tem acesso liberado na tabela users_access
-        const { data: accessData, error } = await supabase
+        // Buscar no banco usando ID
+        const { data, error } = await supabase
           .from('users_access')
-          .select('liberado')
-          .eq('id', session.user.id)
+          .select('*')
+          .eq('id', user.id)
           .single();
 
-        if (error || !accessData || !accessData.liberado) {
+        // Validar acesso
+        if (!data || data.liberado !== true) {
           setIsLiberado(false);
         } else {
           setIsLiberado(true);
