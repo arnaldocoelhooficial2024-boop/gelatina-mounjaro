@@ -249,7 +249,7 @@ const DayCard: React.FC<{
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={onToggleCompletion}
-                className={`w-full mt-8 py-4 rounded-2xl font-bold flex items-center justify-center gap-2 transition-all duration-300 shadow-lg ${isCompleted ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 shadow-emerald-500/10 hover:bg-emerald-200 dark:hover:bg-emerald-900/50' : 'bg-slate-900 dark:bg-brand-600 text-white hover:bg-brand-600 dark:hover:bg-brand-500 shadow-slate-900/20 dark:shadow-brand-900/20'}`}
+                className={`w-full mt-8 py-4 rounded-2xl font-bold flex items-center justify-center gap-2 transition-all duration-300 shadow-lg ${isCompleted ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 shadow-emerald-500/10 hover:bg-emerald-200 dark:hover:bg-emerald-900/50' : 'bg-gradient-to-r from-brand-600 to-pink-600 text-white hover:from-brand-700 hover:to-pink-700 shadow-brand-600/20 dark:shadow-brand-900/20'}`}
               >
                 <CheckCircle size={20} strokeWidth={2} className={isCompleted ? "text-emerald-600 dark:text-emerald-400" : ""} />
                 {isCompleted ? 'Concluído' : 'Marcar como Concluído'}

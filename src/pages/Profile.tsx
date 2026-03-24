@@ -238,7 +238,7 @@ export function Profile() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleSaveHealth}
-              className="text-sm font-bold text-white bg-brand-600 px-4 py-2 rounded-full hover:bg-brand-700 transition-colors flex items-center gap-1"
+              className="text-sm font-bold text-white bg-gradient-to-r from-brand-600 to-pink-600 px-4 py-2 rounded-full hover:from-brand-700 hover:to-pink-700 transition-all flex items-center gap-1 shadow-md shadow-brand-600/20"
             >
               <Check size={16} /> Salvar
             </motion.button>

@@ -248,7 +248,7 @@ export function Dashboard() {
       <motion.section 
         variants={itemVariants}
         whileHover={{ scale: 1.02 }}
-        className="bg-slate-900 text-white rounded-[2rem] p-6 flex items-center justify-between shadow-lg shadow-slate-900/10 relative overflow-hidden group"
+        className="bg-gradient-to-r from-brand-600 to-pink-600 text-white rounded-[2rem] p-6 flex items-center justify-between shadow-lg shadow-brand-900/20 relative overflow-hidden group"
       >
         <div className="absolute -right-10 -top-10 w-32 h-32 bg-brand-500/20 rounded-full blur-2xl group-hover:bg-brand-500/30 transition-colors duration-500"></div>
         <div className="relative z-10">

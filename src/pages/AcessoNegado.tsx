@@ -37,7 +37,7 @@ export function AcessoNegado() {
       >
         <Link 
           to="/login" 
-          className="bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 px-8 rounded-xl transition-colors inline-block"
+          className="bg-gradient-to-r from-brand-600 to-pink-600 hover:from-brand-700 hover:to-pink-700 text-white font-bold py-3 px-8 rounded-xl transition-all inline-block shadow-lg shadow-brand-600/20"
         >
           Voltar para o Login
         </Link>

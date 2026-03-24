@@ -144,7 +144,7 @@ export function Register() {
             whileTap={{ scale: 0.98 }}
             type="submit"
             disabled={isLoading}
-            className="w-full bg-slate-900 dark:bg-brand-600 text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-brand-600 dark:hover:bg-brand-500 transition-colors shadow-lg shadow-slate-900/20 dark:shadow-brand-900/20 mt-4 disabled:opacity-70 disabled:cursor-not-allowed"
+            className="w-full bg-gradient-to-r from-brand-600 to-pink-600 text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:from-brand-700 hover:to-pink-700 transition-all shadow-lg shadow-brand-600/20 dark:shadow-brand-900/20 mt-4 disabled:opacity-70 disabled:cursor-not-allowed"
           >
             {isLoading ? 'Criando...' : (
               <>Criar conta <ArrowRight size={18} /></>
