@@ -124,20 +124,20 @@ export function ResetPassword() {
   // Tela de Loading inicial (verificando o token)
   if (isCheckingSession) {
     return (
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex flex-col items-center justify-center p-6 text-slate-900 dark:text-white relative overflow-hidden">
-        {/* Background Image with Overlay */}
+      <div className="min-h-screen flex flex-col items-center justify-center p-6 text-slate-900 dark:text-white relative overflow-hidden">
+        {/* Premium Background Image */}
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1200&q=80" 
-            alt="Fitness Background" 
-            className="w-full h-full object-cover opacity-20 dark:opacity-10"
+            src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=1600&q=80" 
+            alt="Premium Fitness Background" 
+            className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-50/80 via-slate-50/95 to-slate-50 dark:from-slate-900/80 dark:via-slate-900/95 dark:to-slate-900"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/40 via-slate-900/60 to-slate-900/80 dark:from-slate-900/60 dark:via-slate-900/80 dark:to-slate-900/95"></div>
         </div>
         <div className="relative z-10 flex flex-col items-center">
-          <Loader2 className="w-10 h-10 animate-spin text-brand-500 mb-4" />
-          <p className="text-slate-500 font-medium">Validando link de segurança...</p>
+          <Loader2 className="w-10 h-10 animate-spin text-white mb-4 drop-shadow-md" />
+          <p className="text-slate-200 font-medium drop-shadow">Validando link de segurança...</p>
         </div>
       </div>
     );
@@ -146,34 +146,34 @@ export function ResetPassword() {
   // Tela de Erro (Token inválido ou expirado)
   if (!isSessionValid && !success) {
     return (
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex flex-col justify-center p-6 text-slate-900 dark:text-white relative overflow-hidden">
-        {/* Background Image with Overlay */}
+      <div className="min-h-screen flex flex-col justify-center p-6 text-slate-900 dark:text-white relative overflow-hidden">
+        {/* Premium Background Image */}
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1200&q=80" 
-            alt="Fitness Background" 
-            className="w-full h-full object-cover opacity-20 dark:opacity-10"
+            src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=1600&q=80" 
+            alt="Premium Fitness Background" 
+            className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-50/80 via-slate-50/95 to-slate-50 dark:from-slate-900/80 dark:via-slate-900/95 dark:to-slate-900"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/40 via-slate-900/60 to-slate-900/80 dark:from-slate-900/60 dark:via-slate-900/80 dark:to-slate-900/95"></div>
         </div>
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="max-w-md w-full mx-auto bg-white dark:bg-slate-800 p-8 rounded-[2.5rem] shadow-sm border border-slate-100 dark:border-slate-700 text-center space-y-6 relative z-10"
+          className="max-w-md w-full mx-auto bg-white/10 dark:bg-slate-900/40 backdrop-blur-xl p-8 rounded-[2.5rem] shadow-2xl border border-white/20 dark:border-white/10 text-center space-y-6 relative z-10"
         >
           <div className="flex justify-center">
-            <div className="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center text-red-600 dark:text-red-400">
+            <div className="w-16 h-16 bg-red-500/20 backdrop-blur-md rounded-full flex items-center justify-center text-red-100 border border-red-500/30">
               <Lock size={32} />
             </div>
           </div>
-          <h2 className="text-2xl font-serif font-bold">Link inválido ou expirado</h2>
-          <p className="text-slate-500 dark:text-slate-400">
+          <h2 className="text-2xl font-serif font-bold text-white drop-shadow-md">Link inválido ou expirado</h2>
+          <p className="text-slate-200 drop-shadow-sm">
             O link de recuperação que você acessou não é mais válido. Por favor, solicite um novo link na tela de login.
           </p>
           <button
             onClick={() => window.location.href = '/login'}
-            className="w-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 py-4 rounded-2xl font-bold hover:bg-slate-800 dark:hover:bg-slate-100 transition-all"
+            className="w-full bg-white text-slate-900 py-4 rounded-2xl font-bold hover:bg-slate-100 transition-all shadow-xl"
           >
             Voltar para o Login
           </button>
@@ -185,32 +185,32 @@ export function ResetPassword() {
   // Tela de Sucesso
   if (success) {
     return (
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex flex-col justify-center p-6 text-slate-900 dark:text-white transition-colors duration-300 relative overflow-hidden">
-        {/* Background Image with Overlay */}
+      <div className="min-h-screen flex flex-col justify-center p-6 text-slate-900 dark:text-white transition-colors duration-300 relative overflow-hidden">
+        {/* Premium Background Image */}
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1200&q=80" 
-            alt="Fitness Background" 
-            className="w-full h-full object-cover opacity-20 dark:opacity-10"
+            src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=1600&q=80" 
+            alt="Premium Fitness Background" 
+            className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-50/80 via-slate-50/95 to-slate-50 dark:from-slate-900/80 dark:via-slate-900/95 dark:to-slate-900"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/40 via-slate-900/60 to-slate-900/80 dark:from-slate-900/60 dark:via-slate-900/80 dark:to-slate-900/95"></div>
         </div>
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="max-w-md w-full mx-auto bg-white dark:bg-slate-800 p-8 rounded-[2.5rem] shadow-sm border border-slate-100 dark:border-slate-700 text-center space-y-6 relative z-10"
+          className="max-w-md w-full mx-auto bg-white/10 dark:bg-slate-900/40 backdrop-blur-xl p-8 rounded-[2.5rem] shadow-2xl border border-white/20 dark:border-white/10 text-center space-y-6 relative z-10"
         >
           <div className="flex justify-center">
-            <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center text-green-600 dark:text-green-400">
+            <div className="w-16 h-16 bg-emerald-500/20 backdrop-blur-md rounded-full flex items-center justify-center text-emerald-100 border border-emerald-500/30">
               <CheckCircle2 size={32} />
             </div>
           </div>
-          <h2 className="text-2xl font-serif font-bold">Senha atualizada com sucesso</h2>
-          <p className="text-slate-500 dark:text-slate-400">
+          <h2 className="text-2xl font-serif font-bold text-white drop-shadow-md">Senha atualizada com sucesso</h2>
+          <p className="text-slate-200 drop-shadow-sm">
             Você será redirecionado para o seu painel em instantes...
           </p>
-          <Loader2 className="w-6 h-6 animate-spin text-brand-500 mx-auto mt-4" />
+          <Loader2 className="w-6 h-6 animate-spin text-white mx-auto mt-4 drop-shadow" />
         </motion.div>
       </div>
     );
@@ -218,16 +218,16 @@ export function ResetPassword() {
 
   // Formulário de Nova Senha
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex flex-col justify-center p-6 text-slate-900 dark:text-white transition-colors duration-300 relative overflow-hidden">
-      {/* Background Image with Overlay */}
+    <div className="min-h-screen flex flex-col justify-center p-6 text-slate-900 dark:text-white transition-colors duration-300 relative overflow-hidden">
+      {/* Premium Background Image */}
       <div className="absolute inset-0 z-0">
         <img 
-          src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1200&q=80" 
-          alt="Fitness Background" 
-          className="w-full h-full object-cover opacity-20 dark:opacity-10"
+          src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=1600&q=80" 
+          alt="Premium Fitness Background" 
+          className="w-full h-full object-cover"
           referrerPolicy="no-referrer"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-50/80 via-slate-50/95 to-slate-50 dark:from-slate-900/80 dark:via-slate-900/95 dark:to-slate-900"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900/40 via-slate-900/60 to-slate-900/80 dark:from-slate-900/60 dark:via-slate-900/80 dark:to-slate-900/95"></div>
       </div>
 
       <motion.div 
@@ -237,55 +237,55 @@ export function ResetPassword() {
         className="max-w-md w-full mx-auto space-y-8 relative z-10"
       >
         <div className="text-center space-y-2">
-          <motion.div variants={itemVariants} className="flex justify-center mb-6">
-            <Logo className="w-64 h-auto" />
+          <motion.div variants={itemVariants} className="flex justify-center mb-6 drop-shadow-lg">
+            <Logo className="w-64 h-auto text-white" />
           </motion.div>
-          <motion.h1 variants={itemVariants} className="text-3xl font-serif font-bold tracking-tight">Criar Nova Senha</motion.h1>
-          <motion.p variants={itemVariants} className="text-slate-500 dark:text-slate-400 text-sm">
+          <motion.h1 variants={itemVariants} className="text-3xl font-serif font-bold tracking-tight text-white drop-shadow-md">Criar Nova Senha</motion.h1>
+          <motion.p variants={itemVariants} className="text-slate-200 text-sm drop-shadow">
             Digite sua nova senha de acesso ao protocolo
           </motion.p>
         </div>
 
-        <motion.form variants={itemVariants} onSubmit={handleResetPassword} className="space-y-5 bg-white dark:bg-slate-800 p-8 rounded-[2.5rem] shadow-sm border border-slate-100 dark:border-slate-700">
+        <motion.form variants={itemVariants} onSubmit={handleResetPassword} className="space-y-5 bg-white/10 dark:bg-slate-900/40 backdrop-blur-xl p-8 rounded-[2.5rem] shadow-2xl border border-white/20 dark:border-white/10">
           {error && (
             <motion.div 
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-800 rounded-xl text-sm text-red-600 dark:text-red-400 text-center"
+              className="p-3 bg-red-500/20 backdrop-blur-md border border-red-500/30 rounded-xl text-sm text-red-100 text-center"
             >
               {error}
             </motion.div>
           )}
 
           <div className="space-y-1.5">
-            <label className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 ml-1">Nova Senha</label>
-            <div className="relative">
+            <label className="text-xs font-bold uppercase tracking-widest text-slate-200 ml-1 drop-shadow-sm">Nova Senha</label>
+            <div className="relative group">
               <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <Lock size={18} className="text-slate-400" />
+                <Lock size={18} className="text-slate-300 group-focus-within:text-white transition-colors" />
               </div>
               <input
                 type="password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full pl-11 pr-4 py-4 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all dark:text-white"
+                className="w-full pl-11 pr-4 py-4 bg-white/5 border border-white/10 rounded-2xl text-sm text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-transparent transition-all backdrop-blur-sm"
                 placeholder="Mínimo de 6 caracteres"
               />
             </div>
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 ml-1">Confirmar Nova Senha</label>
-            <div className="relative">
+            <label className="text-xs font-bold uppercase tracking-widest text-slate-200 ml-1 drop-shadow-sm">Confirmar Nova Senha</label>
+            <div className="relative group">
               <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <Lock size={18} className="text-slate-400" />
+                <Lock size={18} className="text-slate-300 group-focus-within:text-white transition-colors" />
               </div>
               <input
                 type="password"
                 required
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full pl-11 pr-4 py-4 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all dark:text-white"
+                className="w-full pl-11 pr-4 py-4 bg-white/5 border border-white/10 rounded-2xl text-sm text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-transparent transition-all backdrop-blur-sm"
                 placeholder="Repita a senha"
               />
             </div>
@@ -296,7 +296,7 @@ export function ResetPassword() {
             whileTap={{ scale: 0.98 }}
             type="submit"
             disabled={isLoading}
-            className="w-full bg-gradient-to-r from-brand-600 to-pink-600 text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:from-brand-700 hover:to-pink-700 transition-all shadow-lg shadow-brand-600/20 dark:shadow-brand-900/20 mt-4 disabled:opacity-70 disabled:cursor-not-allowed"
+            className="w-full bg-white text-slate-900 py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-slate-100 transition-all shadow-xl mt-4 disabled:opacity-70 disabled:cursor-not-allowed"
           >
             {isLoading ? (
               <><Loader2 size={18} className="animate-spin" /> Salvando...</>

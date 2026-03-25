@@ -22,6 +22,7 @@ const itemVariants = {
 export function Profile() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [user, setUser] = useState<{ name: string; email: string } | null>(null);
+  const [photoUrl, setPhotoUrl] = useState<string | null>(null);
   const [streak, setStreak] = useState(0);
   
   // Health Data
@@ -78,6 +79,7 @@ export function Profile() {
     
     setHeight(localStorage.getItem('gm_height') || '');
     setGoalWeight(localStorage.getItem('gm_goal_weight') || '');
+    setPhotoUrl(localStorage.getItem('gm_photo_url') || null);
   }, []);
 
   const handleSaveHealth = () => {
@@ -131,6 +133,19 @@ export function Profile() {
     navigate('/login');
   };
 
+  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = reader.result as string;
+        setPhotoUrl(base64String);
+        localStorage.setItem('gm_photo_url', base64String);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   // Calculate IMC
   let imc = 0;
   let imcCategory = '';
@@ -148,14 +163,24 @@ export function Profile() {
     }
   }
 
-  // Calculate weight lost
+  // Calculate weight lost and progress
   let weightLost = '0.0';
-  if (weightHistory.length > 1) {
+  let progressPercentage = 0;
+  if (weightHistory.length > 0) {
     const initialWeight = weightHistory[0].weight;
     const current = weightHistory[weightHistory.length - 1].weight;
     weightLost = (initialWeight - current).toFixed(1);
     // if negative, it means gained weight, but let's just show it as is or 0
     if (parseFloat(weightLost) < 0) weightLost = '0.0';
+
+    if (goalWeight && !isNaN(parseFloat(goalWeight))) {
+      const goal = parseFloat(goalWeight);
+      if (initialWeight > goal) {
+        progressPercentage = ((initialWeight - current) / (initialWeight - goal)) * 100;
+        if (progressPercentage > 100) progressPercentage = 100;
+        if (progressPercentage < 0) progressPercentage = 0;
+      }
+    }
   }
 
   return (
@@ -178,8 +203,26 @@ export function Profile() {
         whileHover={{ scale: 1.02 }}
         className="bg-white dark:bg-slate-800 rounded-[2rem] p-6 shadow-sm border border-slate-100 dark:border-slate-700 flex items-center gap-5"
       >
-        <div className="w-20 h-20 bg-gradient-to-tr from-brand-600 to-brand-400 rounded-full flex items-center justify-center shadow-lg shadow-brand-500/20 text-white text-2xl font-serif font-bold italic shrink-0">
-          {user?.name?.charAt(0) || 'V'}
+        <div className="relative">
+          <label htmlFor="photo-upload" className="cursor-pointer block">
+            <div className="w-20 h-20 bg-gradient-to-tr from-brand-600 to-brand-400 rounded-full flex items-center justify-center shadow-lg shadow-brand-500/20 text-white text-2xl font-serif font-bold italic shrink-0 overflow-hidden border-2 border-white dark:border-slate-800">
+              {photoUrl ? (
+                <img src={photoUrl} alt="Perfil" className="w-full h-full object-cover" />
+              ) : (
+                user?.name?.charAt(0) || 'V'
+              )}
+            </div>
+            <div className="absolute bottom-0 right-0 w-6 h-6 bg-white dark:bg-slate-700 rounded-full flex items-center justify-center shadow-sm border border-slate-100 dark:border-slate-600">
+              <span className="text-[10px]">📷</span>
+            </div>
+          </label>
+          <input 
+            id="photo-upload" 
+            type="file" 
+            accept="image/*" 
+            className="hidden" 
+            onChange={handlePhotoUpload}
+          />
         </div>
         <div className="flex-1 min-w-0">
           <h2 className="text-xl font-bold text-slate-900 dark:text-white truncate">{user?.name}</h2>
@@ -315,6 +358,24 @@ export function Profile() {
               {imcCategory && <div className="text-[10px] font-medium text-slate-500 mt-1 leading-tight">{imcCategory}</div>}
             </div>
           </motion.div>
+        )}
+
+        {/* Progress Bar */}
+        {!isEditingHealth && goalWeight && currentWeight && (
+          <div className="mb-8">
+            <div className="flex justify-between items-end mb-2">
+              <span className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">Progresso até a meta</span>
+              <span className="text-sm font-bold text-brand-600 dark:text-brand-400">{progressPercentage.toFixed(0)}%</span>
+            </div>
+            <div className="h-3 w-full bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
+              <motion.div 
+                initial={{ width: 0 }}
+                animate={{ width: `${progressPercentage}%` }}
+                transition={{ duration: 1, ease: "easeOut" }}
+                className="h-full bg-gradient-to-r from-brand-500 to-pink-500 rounded-full"
+              />
+            </div>
+          </div>
         )}
 
         {/* Chart */}

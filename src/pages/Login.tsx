@@ -83,16 +83,17 @@ export function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex flex-col justify-center p-6 text-slate-900 dark:text-white transition-colors duration-300 relative overflow-hidden">
-      {/* Background Image with Overlay */}
+    <div className="min-h-screen flex flex-col justify-center p-6 text-slate-900 dark:text-white transition-colors duration-300 relative overflow-hidden">
+      {/* Premium Background Image */}
       <div className="absolute inset-0 z-0">
         <img 
-          src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1200&q=80" 
-          alt="Fitness Background" 
-          className="w-full h-full object-cover opacity-20 dark:opacity-10"
+          src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=1600&q=80" 
+          alt="Premium Fitness Background" 
+          className="w-full h-full object-cover"
           referrerPolicy="no-referrer"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-50/80 via-slate-50/95 to-slate-50 dark:from-slate-900/80 dark:via-slate-900/95 dark:to-slate-900"></div>
+        {/* Dark/Light Gradient Overlay for readability */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900/40 via-slate-900/60 to-slate-900/80 dark:from-slate-900/60 dark:via-slate-900/80 dark:to-slate-900/95"></div>
       </div>
 
       <motion.div 
@@ -102,19 +103,20 @@ export function Login() {
         className="max-w-md w-full mx-auto space-y-8 relative z-10"
       >
         <div className="text-center space-y-2">
-          <motion.div variants={itemVariants} className="flex justify-center mb-6">
-            <Logo className="w-64 h-auto" />
+          <motion.div variants={itemVariants} className="flex justify-center mb-6 drop-shadow-lg">
+            <Logo className="w-64 h-auto text-white" />
           </motion.div>
-          <motion.h1 variants={itemVariants} className="text-3xl font-serif font-bold tracking-tight">Bem-vinda de volta</motion.h1>
-          <motion.p variants={itemVariants} className="text-slate-500 dark:text-slate-400 text-sm">Acesse seu protocolo Gelatina Mounjaro</motion.p>
+          <motion.h1 variants={itemVariants} className="text-3xl font-serif font-bold tracking-tight text-white drop-shadow-md">Bem-vinda de volta</motion.h1>
+          <motion.p variants={itemVariants} className="text-slate-200 text-sm drop-shadow">Acesse seu protocolo Gelatina Mounjaro</motion.p>
         </div>
 
-        <motion.div variants={itemVariants} className="space-y-5 bg-white dark:bg-slate-800 p-8 rounded-[2.5rem] shadow-sm border border-slate-100 dark:border-slate-700">
+        {/* Glassmorphism Card */}
+        <motion.div variants={itemVariants} className="space-y-5 bg-white/10 dark:bg-slate-900/40 backdrop-blur-xl p-8 rounded-[2.5rem] shadow-2xl border border-white/20 dark:border-white/10">
           {error && (
             <motion.div 
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-800 rounded-xl text-sm text-red-600 dark:text-red-400 text-center"
+              className="p-3 bg-red-500/20 backdrop-blur-md border border-red-500/30 rounded-xl text-sm text-red-100 text-center"
             >
               {error}
             </motion.div>
@@ -124,7 +126,7 @@ export function Login() {
             <motion.div 
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="p-3 bg-green-50 dark:bg-green-900/20 border border-green-100 dark:border-green-800 rounded-xl text-sm text-green-600 dark:text-green-400 text-center"
+              className="p-3 bg-emerald-500/20 backdrop-blur-md border border-emerald-500/30 rounded-xl text-sm text-emerald-100 text-center"
             >
               {successMessage}
             </motion.div>
@@ -132,33 +134,33 @@ export function Login() {
 
           <form onSubmit={handleLogin} className="space-y-5">
             <div className="space-y-1.5">
-              <label className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 ml-1">E-mail da Compra</label>
-              <div className="relative">
+              <label className="text-xs font-bold uppercase tracking-widest text-slate-200 ml-1 drop-shadow-sm">E-mail da Compra</label>
+              <div className="relative group">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <Mail size={18} className="text-slate-400" />
+                  <Mail size={18} className="text-slate-300 group-focus-within:text-white transition-colors" />
                 </div>
                 <input
                   type="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-11 pr-4 py-4 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all dark:text-white"
+                  className="w-full pl-11 pr-4 py-4 bg-white/5 border border-white/10 rounded-2xl text-sm text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-transparent transition-all backdrop-blur-sm"
                   placeholder="seu@email.com"
                 />
               </div>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 ml-1">Senha</label>
-              <div className="relative">
+              <label className="text-xs font-bold uppercase tracking-widest text-slate-200 ml-1 drop-shadow-sm">Senha</label>
+              <div className="relative group">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <Lock size={18} className="text-slate-400" />
+                  <Lock size={18} className="text-slate-300 group-focus-within:text-white transition-colors" />
                 </div>
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-11 pr-4 py-4 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all dark:text-white"
+                  className="w-full pl-11 pr-4 py-4 bg-white/5 border border-white/10 rounded-2xl text-sm text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-transparent transition-all backdrop-blur-sm"
                   placeholder="••••••••"
                 />
               </div>
@@ -169,7 +171,7 @@ export function Login() {
                 type="button" 
                 onClick={handleResetPassword}
                 disabled={isResetting}
-                className="text-xs font-bold text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300 transition-colors"
+                className="text-xs font-bold text-slate-300 hover:text-white transition-colors drop-shadow-sm"
               >
                 Esqueci minha senha
               </button>
@@ -180,7 +182,7 @@ export function Login() {
               whileTap={{ scale: 0.98 }}
               type="submit"
               disabled={isLoading}
-              className="w-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-slate-800 dark:hover:bg-slate-100 transition-all shadow-lg mt-4 disabled:opacity-70 disabled:cursor-not-allowed"
+              className="w-full bg-white text-slate-900 py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-slate-100 transition-all shadow-xl mt-4 disabled:opacity-70 disabled:cursor-not-allowed"
             >
               {isLoading ? 'Entrando...' : (
                 <>Entrar <ArrowRight size={18} /></>
@@ -190,10 +192,10 @@ export function Login() {
 
           <div className="relative py-4">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-slate-200 dark:border-slate-700"></div>
+              <div className="w-full border-t border-white/10"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white dark:bg-slate-800 text-slate-500">ou</span>
+              <span className="px-2 bg-transparent text-slate-300 backdrop-blur-sm">ou</span>
             </div>
           </div>
 
@@ -203,17 +205,23 @@ export function Login() {
             type="button"
             onClick={handleResetPassword}
             disabled={isResetting}
-            className="w-full bg-gradient-to-r from-brand-600 to-pink-600 text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:from-brand-700 hover:to-pink-700 transition-all shadow-lg shadow-brand-600/20 dark:shadow-brand-900/20 disabled:opacity-70 disabled:cursor-not-allowed"
+            className="w-full bg-gradient-to-r from-brand-500/80 to-pink-500/80 backdrop-blur-md border border-white/20 text-white py-4 px-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:from-brand-500 hover:to-pink-500 transition-all shadow-lg disabled:opacity-70 disabled:cursor-not-allowed"
           >
             {isResetting ? 'Enviando link...' : (
-              <>Primeiro acesso / Criar senha <KeyRound size={18} /></>
+              <div className="flex flex-col items-center">
+                <div className="flex items-center gap-2">
+                  <span>Primeiro Acesso</span>
+                  <KeyRound size={18} className="shrink-0" />
+                </div>
+                <span className="text-[10px] font-normal opacity-80 mt-0.5">Criar senha</span>
+              </div>
             )}
           </motion.button>
         </motion.div>
 
-        <motion.p variants={itemVariants} className="text-center text-sm text-slate-500 dark:text-slate-400">
+        <motion.p variants={itemVariants} className="text-center text-sm text-slate-300 drop-shadow-sm">
           Ainda não comprou?{' '}
-          <Link to="/register" className="font-bold text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to="/register" className="font-bold text-white hover:underline drop-shadow-md">
             Garantir acesso
           </Link>
         </motion.p>
