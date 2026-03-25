@@ -52,60 +52,69 @@ export function Protocol() {
       <motion.section 
         variants={itemVariants}
         whileHover={{ scale: 1.01 }}
-        className="bg-gradient-to-br from-brand-600 to-brand-800 rounded-[2.5rem] p-8 shadow-xl shadow-brand-900/20 relative overflow-hidden text-white"
+        className="bg-gradient-to-br from-brand-600 via-brand-700 to-brand-900 rounded-[2.5rem] p-6 sm:p-8 shadow-xl shadow-brand-900/20 relative overflow-hidden text-white"
       >
-        <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-3xl -mr-10 -mt-10"></div>
-        <div className="absolute bottom-0 left-0 w-32 h-32 bg-black/10 rounded-full blur-2xl -ml-10 -mb-10"></div>
+        <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 w-48 h-48 bg-black/20 rounded-full blur-2xl -ml-10 -mb-10 pointer-events-none"></div>
+        
         <div className="relative z-10">
           <div className="flex items-center gap-4 mb-6">
             <motion.div 
-              whileHover={{ rotate: 15 }}
-              className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center shrink-0 border border-white/20 shadow-inner"
+              whileHover={{ rotate: 15, scale: 1.1 }}
+              className="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center shrink-0 border border-white/20 shadow-inner"
             >
-              <Sparkles className="text-brand-200" size={24} />
+              <Sparkles className="text-brand-200" size={28} />
             </motion.div>
-            <h3 className="font-bold font-serif text-2xl leading-tight">{appData.protocol_explanation.title}</h3>
+            <div>
+              <h3 className="font-bold font-serif text-2xl leading-tight text-white drop-shadow-sm">{appData.protocol_explanation.title}</h3>
+              <p className="text-brand-200 text-sm font-medium mt-1">O segredo da saciedade</p>
+            </div>
           </div>
           
-          <div className="space-y-6">
-            <div className="bg-white/10 backdrop-blur-md p-5 rounded-2xl border border-white/20">
-              <h4 className="text-brand-200 text-xs font-bold uppercase tracking-widest mb-3">Como Consumir</h4>
-              <ul className="space-y-3">
-                <li className="flex items-start gap-3">
-                  <div className="w-6 h-6 rounded-full bg-brand-500 flex items-center justify-center shrink-0 mt-0.5">
-                    <span className="text-xs font-bold">1</span>
+          <div className="space-y-4">
+            <div className="bg-white/10 backdrop-blur-md p-5 rounded-3xl border border-white/20 shadow-sm">
+              <h4 className="text-brand-100 text-[10px] font-bold uppercase tracking-widest mb-4 flex items-center gap-2">
+                <CheckCircle size={14} className="text-brand-300" />
+                Como Consumir
+              </h4>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="flex flex-col items-center text-center p-3 rounded-2xl bg-white/5 border border-white/10">
+                  <div className="w-10 h-10 rounded-full bg-brand-500/50 flex items-center justify-center mb-3 border border-brand-400/30">
+                    <span className="text-lg font-bold text-white">1</span>
                   </div>
-                  <p className="text-sm font-medium leading-relaxed">
-                    Prepare a <strong className="text-white">Gelatina Mounjaro</strong> usando uma das receitas disponíveis.
+                  <p className="text-xs font-medium text-white/90 leading-relaxed">
+                    Prepare a <strong className="text-white">Gelatina Mounjaro</strong>
                   </p>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-6 h-6 rounded-full bg-brand-500 flex items-center justify-center shrink-0 mt-0.5">
-                    <span className="text-xs font-bold">2</span>
+                </div>
+                <div className="flex flex-col items-center text-center p-3 rounded-2xl bg-white/5 border border-white/10">
+                  <div className="w-10 h-10 rounded-full bg-brand-500/50 flex items-center justify-center mb-3 border border-brand-400/30">
+                    <span className="text-lg font-bold text-white">2</span>
                   </div>
-                  <p className="text-sm font-medium leading-relaxed">
-                    Coma <strong className="text-white">1 taça 30 minutos antes do almoço</strong>.
+                  <p className="text-xs font-medium text-white/90 leading-relaxed">
+                    Coma <strong className="text-white">1 taça 30 min antes do almoço</strong>
                   </p>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-6 h-6 rounded-full bg-brand-500 flex items-center justify-center shrink-0 mt-0.5">
-                    <span className="text-xs font-bold">3</span>
+                </div>
+                <div className="flex flex-col items-center text-center p-3 rounded-2xl bg-white/5 border border-white/10">
+                  <div className="w-10 h-10 rounded-full bg-brand-500/50 flex items-center justify-center mb-3 border border-brand-400/30">
+                    <span className="text-lg font-bold text-white">3</span>
                   </div>
-                  <p className="text-sm font-medium leading-relaxed">
-                    Coma <strong className="text-white">1 taça 30 minutos antes do jantar</strong>.
+                  <p className="text-xs font-medium text-white/90 leading-relaxed">
+                    Coma <strong className="text-white">1 taça 30 min antes do jantar</strong>
                   </p>
-                </li>
-              </ul>
+                </div>
+              </div>
             </div>
 
-            <div className="bg-black/20 backdrop-blur-sm p-5 rounded-2xl border border-white/10 shadow-inner">
-              <div className="flex items-center gap-2 mb-2">
-                <Info size={16} className="text-brand-300" />
-                <span className="text-xs font-bold uppercase tracking-widest text-brand-300">Por que funciona?</span>
+            <div className="bg-black/20 backdrop-blur-sm p-5 rounded-3xl border border-white/10 shadow-inner flex gap-4 items-start">
+              <div className="w-8 h-8 rounded-full bg-brand-500/30 flex items-center justify-center shrink-0 mt-0.5">
+                <Info size={16} className="text-brand-200" />
               </div>
-              <p className="text-sm text-white/90 leading-relaxed">
-                {appData.protocol_explanation.mechanism}
-              </p>
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-widest text-brand-300 block mb-1">Por que funciona?</span>
+                <p className="text-sm text-white/90 leading-relaxed font-medium">
+                  {appData.protocol_explanation.mechanism}
+                </p>
+              </div>
             </div>
           </div>
         </div>

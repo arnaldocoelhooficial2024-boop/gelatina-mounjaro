@@ -205,16 +205,16 @@ export function Login() {
             type="button"
             onClick={handleResetPassword}
             disabled={isResetting}
-            className="w-full bg-gradient-to-r from-brand-500/80 to-pink-500/80 backdrop-blur-md border border-white/20 text-white py-4 px-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:from-brand-500 hover:to-pink-500 transition-all shadow-lg disabled:opacity-70 disabled:cursor-not-allowed"
+            className="w-full bg-gradient-to-r from-brand-500/80 to-pink-500/80 backdrop-blur-md border border-white/20 text-white py-3 px-4 rounded-2xl font-bold flex flex-col items-center justify-center gap-1 hover:from-brand-500 hover:to-pink-500 transition-all shadow-lg disabled:opacity-70 disabled:cursor-not-allowed"
           >
             {isResetting ? 'Enviando link...' : (
-              <div className="flex flex-col items-center">
+              <>
                 <div className="flex items-center gap-2">
                   <span>Primeiro Acesso</span>
-                  <KeyRound size={18} className="shrink-0" />
+                  <KeyRound size={16} className="shrink-0" />
                 </div>
-                <span className="text-[10px] font-normal opacity-80 mt-0.5">Criar senha</span>
-              </div>
+                <span className="text-[10px] font-normal opacity-80">Criar senha</span>
+              </>
             )}
           </motion.button>
         </motion.div>

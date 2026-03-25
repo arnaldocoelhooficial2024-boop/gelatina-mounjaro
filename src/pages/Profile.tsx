@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { User, Settings, LogOut, Moon, Sun, Award, ChevronRight, Bell, Shield, HelpCircle, Check, Activity, Target, Scale, Ruler } from 'lucide-react';
+import { User, Settings, LogOut, Moon, Sun, Award, ChevronRight, Bell, Shield, HelpCircle, Check, Activity, Target, Scale, Ruler, Edit2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts';
 
@@ -23,6 +23,8 @@ export function Profile() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [user, setUser] = useState<{ name: string; email: string } | null>(null);
   const [photoUrl, setPhotoUrl] = useState<string | null>(null);
+  const [isEditingName, setIsEditingName] = useState(false);
+  const [tempName, setTempName] = useState('');
   const [streak, setStreak] = useState(0);
   
   // Health Data
@@ -47,9 +49,12 @@ export function Profile() {
     // Get user
     const userData = localStorage.getItem('gm_user');
     if (userData) {
-      setUser(JSON.parse(userData));
+      const parsedUser = JSON.parse(userData);
+      setUser(parsedUser);
+      setTempName(parsedUser.name);
     } else {
       setUser({ name: 'Vencedora', email: 'aluna@gelatinamounjaro.com' });
+      setTempName('Vencedora');
     }
 
     // Get streak
@@ -146,6 +151,15 @@ export function Profile() {
     }
   };
 
+  const handleSaveName = () => {
+    if (user && tempName.trim()) {
+      const updatedUser = { ...user, name: tempName };
+      setUser(updatedUser);
+      localStorage.setItem('gm_user', JSON.stringify(updatedUser));
+    }
+    setIsEditingName(false);
+  };
+
   // Calculate IMC
   let imc = 0;
   let imcCategory = '';
@@ -225,7 +239,33 @@ export function Profile() {
           />
         </div>
         <div className="flex-1 min-w-0">
-          <h2 className="text-xl font-bold text-slate-900 dark:text-white truncate">{user?.name}</h2>
+          {isEditingName ? (
+            <div className="flex items-center gap-2 mb-2">
+              <input
+                type="text"
+                value={tempName}
+                onChange={(e) => setTempName(e.target.value)}
+                className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5 text-sm font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500"
+                autoFocus
+              />
+              <button 
+                onClick={handleSaveName}
+                className="p-1.5 bg-brand-500 text-white rounded-xl hover:bg-brand-600 transition-colors"
+              >
+                <Check size={16} />
+              </button>
+            </div>
+          ) : (
+            <div className="flex items-center gap-2">
+              <h2 className="text-xl font-bold text-slate-900 dark:text-white truncate">{user?.name}</h2>
+              <button 
+                onClick={() => setIsEditingName(true)}
+                className="text-slate-400 hover:text-brand-500 transition-colors"
+              >
+                <Edit2 size={14} />
+              </button>
+            </div>
+          )}
           <p className="text-slate-500 dark:text-slate-400 text-sm mb-2 truncate">{user?.email}</p>
           <div className="inline-flex items-center gap-1.5 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
             <Award size={14} />
